@@ -40,5 +40,9 @@ const findByDate= async (dateTemp)=>{
     const trk=positionModule.findOne({date: dateTemp})
     return trk
 }
+const findAll= async ()=>{
+    const trk=positionModule.find({})
+    return trk
+}
 
-module.exports={insertTrk,findByDate}
+module.exports={insertTrk,findByDate,findAll}
