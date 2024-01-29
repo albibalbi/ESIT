@@ -26,7 +26,7 @@ app.get('/api',async (req,res)=>{
     else{
         temp= await findAll()
     }
-   
+    res.set({'Content-type': 'application/json'})
     console.log(temp)
     res.status(200).json(temp) 
 })
