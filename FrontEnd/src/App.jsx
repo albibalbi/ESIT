@@ -3,6 +3,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import L from 'leaflet'; // Import Leaflet library
 import 'leaflet/dist/leaflet.css'; // Import Leaflet CSS
+import { Chart, CategoryScale, LinearScale, LineController, LineElement, PointElement, Tooltip, Legend } from 'chart.js';
+
+Chart.register(CategoryScale, LinearScale, LineController, LineElement, PointElement, Tooltip, Legend);
+
 
 const MyDashboardPage = () => {
   const [selectedOption, setSelectedOption] = useState('');
@@ -31,6 +35,7 @@ const MyDashboardPage = () => {
 
           // Create the map when data is fetched
           createMap(jsonData[0]);
+          updateAltitudesGraph(jsonData[0]);
         } else {
           console.error('Invalid JSON structure:', jsonData);
         }
@@ -51,6 +56,7 @@ const MyDashboardPage = () => {
 
     // Update the map when the dropdown changes
     updateMap(selectedDataItem);
+    updateAltitudesGraph(selectedDataItem);
   };
 
   const createMap = (firstRun) => {
@@ -88,14 +94,59 @@ const MyDashboardPage = () => {
     }
   };
 
+  const updateAltitudesGraph = (selectedDataItem) => {
+    if (selectedDataItem) {
+      const positions = selectedDataItem.positions;
+      const altitudes = positions.map(position => position.alt);
+  
+      // Calculate time in minutes with 15-second intervals
+      const timeInMinutes = positions.map((_, index) => index * 15 / 60);
+  
+      const ctx = document.getElementById('altitudesChart');
+      if (ctx) {
+        // Destroy the existing chart instance if it exists
+        Chart.getChart(ctx)?.destroy();
+  
+        const altitudesChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: timeInMinutes,
+            datasets: [{
+              label: 'Altitudes',
+              data: altitudes,
+              borderColor: 'rgba(75, 192, 192, 1)',
+              borderWidth: 1,
+              fill: false,
+            }],
+          },
+          options: {
+            scales: {
+              x: {
+                type: 'linear', // Use linear scale for time in minutes
+                position: 'bottom',
+                title: {
+                  display: true,
+                  text: 'Time (minutes)',
+                },
+              },
+              y: {
+                display: true,
+              },
+            },
+          },
+        });
+      }
+    }
+  };
+  
  // Null check for selectedData
 const durationInMinutes = selectedData ? Math.floor(selectedData.duration / 60) : 0;
 const durationInSeconds = selectedData ? selectedData.duration % 60 : 0;
 
   return (
     <div className="dashboard-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <div className="dropdown-container" style={{ textAlign: 'center' }}>
-        <label htmlFor="dropdown">Select a date:</label>
+      <div className="dropdown-container" style={{ textAlign: 'center' , backgroundColor:'white',borderRadius:'4px',color:'black' }}>
+        <label htmlFor="dropdown" style={{padding:'0px 10px 0px 10px'}}>Select a date:</label>
         <select
           id="dropdown"
           value={selectedOption}
@@ -111,17 +162,25 @@ const durationInSeconds = selectedData ? selectedData.duration % 60 : 0;
         </select>
       </div>
 
-      {/* Map container with added border */}
-      <div id="map" style={{ border: '2px solid #ddd', borderRadius: '8px', margin: '20px', height: '400px', minWidth: '400px' }}></div>
+      <div className='display-container' style={{ display: 'flex', flexDirection: 'row', width:'100%'}}>
 
-      {/* Dashboard container */}
-      <div className="dashboard" style={{ margin: '20px', padding: '20px', maxWidth: '600px', minWidth: '400px', textAlign: 'center' }}>
-        <h2>{selectedOption}</h2>
-        <p><strong>Duration:</strong> {selectedData ? `${durationInMinutes}:${durationInSeconds < 10 ? '0' : ''}${durationInSeconds} min` : 'N/A'}</p>
-        <p><strong>Distance:</strong> {selectedData ? `${(selectedData.distance / 1000).toFixed(3)} km` : 'N/A'}</p>
-        <p><strong>Average Speed:</strong> {selectedData ? `${selectedData.avg_speed} km/h` : 'N/A'}</p>
-        <p><strong>Altitude Difference:</strong> {selectedData ? `${selectedData.altitude_diff} m` : 'N/A'}</p>
-      </div>
+
+        {/* Map container with added border */}
+        <div id="map" style={{ border: '2px solid #ddd', borderRadius: '8px', margin: '20px', height: '600px', minWidth: '800px' }}></div>
+
+        {/* Dashboard container */}
+        <div className="dashboard" style={{ margin: '20px', padding: '20px', maxWidth: '600px', minWidth: '400px', textAlign: 'center', paddingTop:'100px' }}>
+          <h2>{selectedOption}</h2>
+          <p><strong>Duration:</strong> {selectedData ? `${durationInMinutes}:${durationInSeconds < 10 ? '0' : ''}${durationInSeconds} min` : 'N/A'}</p>
+          <p><strong>Distance:</strong> {selectedData ? `${(selectedData.distance / 1000).toFixed(3)} km` : 'N/A'}</p>
+          <p><strong>Average Speed:</strong> {selectedData ? `${selectedData.avg_speed} km/h` : 'N/A'}</p>
+          <p><strong>Altitude Difference:</strong> {selectedData ? `${selectedData.altitude_diff} m` : 'N/A'}</p>
+          <div>
+           <canvas id="altitudesChart" width="400" height="200"></canvas>
+          </div>
+        </div>
+       
+        </div>
     </div>
   );
 };
