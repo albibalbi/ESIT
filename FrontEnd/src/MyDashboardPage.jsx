@@ -20,7 +20,7 @@ const MyDashboardPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://13.60.21.191:3000/api');
+        const response = await fetch('https://raw.githubusercontent.com/panciut/test/main/20240123_4.json');
         const jsonData = await response.json();
 
         if (Array.isArray(jsonData) && jsonData.length > 0 && jsonData[0].date) {
@@ -118,6 +118,7 @@ const MyDashboardPage = () => {
               borderColor: 'rgba(75, 192, 192, 1)',
               borderWidth: 1,
               fill: false,
+              borderDash: [],
             }],
           },
           options: {
