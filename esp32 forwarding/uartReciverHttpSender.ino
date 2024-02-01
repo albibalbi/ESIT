@@ -35,8 +35,8 @@ void loop() {
    
   
   String c="";
-  while(Serial.available()>0){
-    c=Serial.readStringUntil('\0');
+  while(Serial2.available()>0){
+    c=Serial2.readStringUntil('\0');
 
   }
   
@@ -58,7 +58,7 @@ void sendJson(){
   }
   else{
     char* formattedResult = formatInputString(input, delimiter);
-    Serial.println(formattedResult);
+    
     HTTPClient  http;
 
     http.begin("http://13.60.21.191:3000/api");
