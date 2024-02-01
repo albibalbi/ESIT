@@ -1,6 +1,6 @@
 const express= require('express')
 const bodyParser= require('body-parser')
-const cons = require('cons')
+const cors = require('cors')
 
 const {insertTrk,findByDate,findAll}=require('./database')
 
