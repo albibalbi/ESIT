@@ -1,9 +1,10 @@
-// File: MyDashboardPage.jsx
+
 
 import React, { useState, useEffect, useRef } from 'react';
-import L from 'leaflet'; // Import Leaflet library
-import 'leaflet/dist/leaflet.css'; // Import Leaflet CSS
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import { Chart, CategoryScale, LinearScale, LineController, LineElement, PointElement, Tooltip, Legend } from 'chart.js';
+import './MyDashboardPage.css'; // Import the CSS file
 
 Chart.register(CategoryScale, LinearScale, LineController, LineElement, PointElement, Tooltip, Legend);
 
@@ -19,7 +20,7 @@ const MyDashboardPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://raw.githubusercontent.com/panciut/test/main/20240123_4.json');
+        const response = await fetch('http://13.60.21.191:3000/api');
         const jsonData = await response.json();
 
         if (Array.isArray(jsonData) && jsonData.length > 0 && jsonData[0].date) {
@@ -64,7 +65,7 @@ const MyDashboardPage = () => {
       const mymap = L.map('map').setView([parseFloat(firstRun.positions[0].lat), parseFloat(firstRun.positions[0].lng)], 15);
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
+        attribution: 'Rigraziamento a Faddi e Panci'
       }).addTo(mymap);
 
       const coordinates = firstRun.positions.map(position => [parseFloat(position.lat), parseFloat(position.lng)]);
@@ -143,10 +144,14 @@ const MyDashboardPage = () => {
 const durationInMinutes = selectedData ? Math.floor(selectedData.duration / 60) : 0;
 const durationInSeconds = selectedData ? selectedData.duration % 60 : 0;
 
+  // ... (previous code)
+
+  // ... (previous code)
+
   return (
     <div className="dashboard-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <div className="dropdown-container" style={{ textAlign: 'center' , backgroundColor:'white',borderRadius:'4px',color:'black' }}>
-        <label htmlFor="dropdown" style={{padding:'0px 10px 0px 10px'}}>Select a date:</label>
+      <div className="dropdown-container" style={{ textAlign: 'center', backgroundColor: 'white', borderRadius: '4px', color: 'black' }}>
+        <label htmlFor="dropdown" style={{ padding: '0px 10px 0px 10px' }}>Select a date:</label>
         <select
           id="dropdown"
           value={selectedOption}
@@ -162,25 +167,24 @@ const durationInSeconds = selectedData ? selectedData.duration % 60 : 0;
         </select>
       </div>
 
-      <div className='display-container' style={{ display: 'flex', flexDirection: 'row', width:'100%'}}>
-
+      <div className='display-container' style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
 
         {/* Map container with added border */}
         <div id="map" style={{ border: '2px solid #ddd', borderRadius: '8px', margin: '20px', height: '600px', minWidth: '800px' }}></div>
 
         {/* Dashboard container */}
-        <div className="dashboard" style={{ margin: '20px', padding: '20px', maxWidth: '600px', minWidth: '400px', textAlign: 'center', paddingTop:'100px' }}>
+        <div className="dashboard" style={{ margin: '20px', padding: '20px', maxWidth: '600px', minWidth: '400px', textAlign: 'center', height: '60%' }}>
           <h2>{selectedOption}</h2>
           <p><strong>Duration:</strong> {selectedData ? `${durationInMinutes}:${durationInSeconds < 10 ? '0' : ''}${durationInSeconds} min` : 'N/A'}</p>
           <p><strong>Distance:</strong> {selectedData ? `${(selectedData.distance / 1000).toFixed(3)} km` : 'N/A'}</p>
           <p><strong>Average Speed:</strong> {selectedData ? `${selectedData.avg_speed} km/h` : 'N/A'}</p>
           <p><strong>Altitude Difference:</strong> {selectedData ? `${selectedData.altitude_diff} m` : 'N/A'}</p>
           <div>
-           <canvas id="altitudesChart" width="400" height="200"></canvas>
+            <canvas id="altitudesChart" width="400" height="200"></canvas>
           </div>
         </div>
-       
-        </div>
+
+      </div>
     </div>
   );
 };
