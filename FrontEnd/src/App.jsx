@@ -15,8 +15,7 @@ const MyDashboardPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://raw.githubusercontent.com/panciut/test/main/20240123_1.json');
-        console.log(response);
+        const response = await fetch('https://raw.githubusercontent.com/panciut/test/main/20240123_4.json');
         const jsonData = await response.json();
 
         if (Array.isArray(jsonData) && jsonData.length > 0 && jsonData[0].date) {
@@ -89,6 +88,10 @@ const MyDashboardPage = () => {
     }
   };
 
+ // Null check for selectedData
+const durationInMinutes = selectedData ? Math.floor(selectedData.duration / 60) : 0;
+const durationInSeconds = selectedData ? selectedData.duration % 60 : 0;
+
   return (
     <div className="dashboard-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <div className="dropdown-container" style={{ textAlign: 'center' }}>
@@ -114,10 +117,10 @@ const MyDashboardPage = () => {
       {/* Dashboard container */}
       <div className="dashboard" style={{ margin: '20px', padding: '20px', maxWidth: '600px', minWidth: '400px', textAlign: 'center' }}>
         <h2>{selectedOption}</h2>
-        <p><strong>Duration:</strong> {selectedData ? `${(selectedData.duration / 60).toFixed(2)} minutes` : 'N/A'}</p>
-        <p><strong>Distance:</strong> {selectedData ? `${(selectedData.distance / 1000).toFixed(2)} kilometers` : 'N/A'}</p>
+        <p><strong>Duration:</strong> {selectedData ? `${durationInMinutes}:${durationInSeconds < 10 ? '0' : ''}${durationInSeconds} min` : 'N/A'}</p>
+        <p><strong>Distance:</strong> {selectedData ? `${(selectedData.distance / 1000).toFixed(3)} km` : 'N/A'}</p>
         <p><strong>Average Speed:</strong> {selectedData ? `${selectedData.avg_speed} km/h` : 'N/A'}</p>
-        <p><strong>Altitude Difference:</strong> {selectedData ? `${selectedData.altitude_diff} meters` : 'N/A'}</p>
+        <p><strong>Altitude Difference:</strong> {selectedData ? `${selectedData.altitude_diff} m` : 'N/A'}</p>
       </div>
     </div>
   );
