@@ -1,36 +1,85 @@
+/* File: MyDashboardPage.css */
+
+/* Resetting default margin and padding */
 body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(to bottom, #3498db, #87CEFA);
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-  }
-  
-  .custom-dropdown {
-    padding: 12px;
-    font-size: 16px;
-    width: 200px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
-  .dashboard {
-    border: 1px solid #ddd;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background: #fff;
-    color: #333;
-    width: 300px;
-    text-align: center;
-  }
-  
-  h2 {
-    color: #333;
-  }
-  
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  /* Background gradient */
+  background: linear-gradient(to bottom, #3498db, #87CEFA);
+  color: #fff;
+  /* Flex container settings */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+/* Styles for the custom dropdown */
+.custom-dropdown {
+  padding: 12px;
+  font-size: 16px;
+  width: 200px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+/* Container for the entire dashboard */
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Container for the dropdown */
+.dropdown-container {
+  text-align: center;
+  background-color: white;
+  border-radius: 4px;
+  color: black;
+  padding: 0px 10px 0px 10px;
+  margin-bottom: 10px;
+}
+
+/* Container for map and dashboard */
+.display-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+/* Styling for the map container */
+#map {
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  margin: 20px;
+  height: 600px;
+  min-width: 800px;
+}
+
+/* Styling for the dashboard container */
+.dashboard {
+  margin: 20px;
+  padding: 20px;
+  max-width: 600px;
+  min-width: 400px;
+  text-align: center;
+  height: 60%;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  color: #333;
+}
+
+/* Styling for the heading in the dashboard */
+h2 {
+  color: #333;
+}
+
+/* Styling for the altitudes chart canvas */
+#altitudesChart {
+  width: 400px;
+  height: 200px;
+}
