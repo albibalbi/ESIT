@@ -7,9 +7,9 @@ typedef struct Race{
     char start_time[GPS_LEN_TIME];
     float instant_speed;
     unsigned int run_duration;          //seconds
-    unsigned int pause_duration;         //seconds
-    unsigned int distance;              //meters
-    float heigh_difference;      //meters
+    unsigned int pause_duration;        //seconds
+    float distance;                     //meters
+    float heigh_difference;             //meters
     Position positions[GPS_LEN_MEMORY]; //lat, lon, alt
     int positions_index;
     bool start_done;
