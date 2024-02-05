@@ -19,12 +19,12 @@ typedef struct Race{
 void race_init(Race* race);
 void race_set_start_date_time(Race* race,const char* date, const char* time);
 void race_set_instant_speed(Race* race, float speed);
-void race_set_run_duration(Race* race, char* time);
-void race_set_pause_duration(Race* race, char* time);
+void race_set_run_duration(Race* race, const char* time);
+void race_set_pause_duration(Race* race, const char* time);
 void race_set_distance(Race* race, float last_distance);
 void race_set_heigh_difference(Race* race, float last_altitudes);
 void race_set_positions(Race* race, Position pos);
-void race_set_start_done(Race* race);
+void race_set_start_run(Race* race, bool value);
 
 // conversions
 const char* float_to_string(float f);
@@ -47,4 +47,3 @@ char* race_make_data_title(Race* race);
 void race_print_struct(Race* race);
 
 #endif
-
