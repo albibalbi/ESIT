@@ -7,6 +7,7 @@
 void race_init(Race* race){
     strcpy(race->start_date, GPS_INVALID_DATE);
     strcpy(race->start_time, GPS_INVALID_TIME);
+    memset(race->positions,0,sizeof(race->positions));
     race->instant_speed = 0;
     race->run_duration = 0;
     race->pause_duration = 0;
@@ -24,16 +25,20 @@ void race_set_instant_speed(Race* race, float speed){
     race->instant_speed = speed;
 }
 
-void race_set_run_duration(Race* race, char* time){
-    race->run_duration = get_seconds_from_time(time) - get_seconds_from_time(race->start_time) - race->pause_duration;
+void race_set_run_duration(Race* race, const char* time){
+    char _time[1];
+    strcpy(_time,time);
+    race->run_duration = get_seconds_from_time(_time) - get_seconds_from_time(race->start_time) - race->pause_duration;
 }
 
-void race_set_pause_duration(Race* race, char* time){
-    race->pause_duration = get_seconds_from_time(time) - (get_seconds_from_time(race->start_time) + race->run_duration);
+void race_set_pause_duration(Race* race, const char* time){
+    char _time[1];
+    strcpy(_time,time);
+    race->pause_duration = get_seconds_from_time(_time) - (get_seconds_from_time(race->start_time) + race->run_duration);
 }
 
 void race_set_distance(Race* race, float last_distance){
-    race->distance += (unsigned int)last_distance;
+    race->distance += last_distance;
 }
 
 void race_set_heigh_difference(Race* race, float last_altitudes){
@@ -49,8 +54,8 @@ void race_set_positions(Race* race, Position pos){
     race->positions_index++;
 }
 
-void race_set_start_done(Race* race){
-    race->start_done = 1;
+void race_set_start_run(Race* race, bool value){
+    race->start_done = value;
 }
 
 const char* float_to_string(float f){
@@ -91,7 +96,7 @@ const char* race_get_instant_speed(Race* race){
 }
 
 const char* race_get_distance(Race* race){
-    return int_to_string(race->distance);
+    return float_to_string(race->distance);
 }
 
 const char* race_get_run_time(Race* race){
@@ -99,19 +104,39 @@ const char* race_get_run_time(Race* race){
 }
 
 const char* race_get_avg_speed(Race* race){
-    return float_to_string((float)(race->distance/race->run_duration)*3.6);
+    return float_to_string((race->distance/race->run_duration)*3.6);
 }
 
 const char* race_get_heigh_difference(Race* race){
     return float_to_string(race->heigh_difference);
 }
 
-const char* race_make_data_string(Race* race){
-    static char str[1];
-    strcat(str, race->start_date);strcat(str, ":");strcat(str, race->start_time);strcat(str, ";");
+char* race_make_data_title(Race* race){
+    char* str = (char*)malloc(sizeof(char) * 20);  // Allocate memory for a string of size 20
+
+    if (str == NULL) {
+        exit(EXIT_FAILURE);
+    }
+    strcpy(str, race->start_date);strcat(str, ":");strcat(str, race->start_time);strcat(str, ";");
     strcat(str, int_to_string(race->run_duration)); strcat(str, ";");
-    strcat(str, int_to_string(race->distance)); strcat(str, ";");
-    strcat(str, float_to_string(race->distance/race->run_duration)); strcat(str, ";");
+    strcat(str, float_to_string(race->distance)); strcat(str, ";");
+    strcat(str, float_to_string((race->distance/race->run_duration)*3.6)); strcat(str, ";");
+    strcat(str, float_to_string(race->heigh_difference)); strcat(str, ";");
+
+    return str;
+
+}
+
+char* race_make_data_string(Race* race) {
+    char* str = (char*)malloc(sizeof(char) * 20);  // Allocate memory for a string of size 20
+
+    if (str == NULL) {
+        exit(EXIT_FAILURE);
+    }
+    strcpy(str, race->start_date);strcat(str, ":");strcat(str, race->start_time);strcat(str, ";");
+    strcat(str, int_to_string(race->run_duration)); strcat(str, ";");
+    strcat(str, float_to_string(race->distance)); strcat(str, ";");
+    strcat(str, float_to_string((race->distance/race->run_duration)*3.6)); strcat(str, ";");
     strcat(str, float_to_string(race->heigh_difference)); strcat(str, ";");
 
     for (int i=0; i<race->positions_index; i++){
@@ -119,6 +144,7 @@ const char* race_make_data_string(Race* race){
         strcat(str, race->positions[i].latitude); strcat(str, ";");
         strcat(str, race->positions[i].altitude); strcat(str, ";");
     }
+
     return str;
 }
 
@@ -134,4 +160,3 @@ void race_print_struct(Race* race){
         printf("altitude %d: %s\n", i, race->positions[i].altitude);
     }
 }
-
