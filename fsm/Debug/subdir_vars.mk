@@ -10,6 +10,10 @@ CMD_SRCS += \
 
 C_SRCS += \
 ../gps.c \
+<<<<<<< HEAD
+=======
+../lcd_function.c \
+>>>>>>> fsm_lcd_state
 ../main.c \
 ../race.c \
 ../startup_msp432p401r_ccs.c \
@@ -17,6 +21,10 @@ C_SRCS += \
 
 C_DEPS += \
 ./gps.d \
+<<<<<<< HEAD
+=======
+./lcd_function.d \
+>>>>>>> fsm_lcd_state
 ./main.d \
 ./race.d \
 ./startup_msp432p401r_ccs.d \
@@ -24,6 +32,10 @@ C_DEPS += \
 
 OBJS += \
 ./gps.obj \
+<<<<<<< HEAD
+=======
+./lcd_function.obj \
+>>>>>>> fsm_lcd_state
 ./main.obj \
 ./race.obj \
 ./startup_msp432p401r_ccs.obj \
@@ -31,6 +43,10 @@ OBJS += \
 
 OBJS__QUOTED += \
 "gps.obj" \
+<<<<<<< HEAD
+=======
+"lcd_function.obj" \
+>>>>>>> fsm_lcd_state
 "main.obj" \
 "race.obj" \
 "startup_msp432p401r_ccs.obj" \
@@ -38,6 +54,10 @@ OBJS__QUOTED += \
 
 C_DEPS__QUOTED += \
 "gps.d" \
+<<<<<<< HEAD
+=======
+"lcd_function.d" \
+>>>>>>> fsm_lcd_state
 "main.d" \
 "race.d" \
 "startup_msp432p401r_ccs.d" \
@@ -45,6 +65,10 @@ C_DEPS__QUOTED += \
 
 C_SRCS__QUOTED += \
 "../gps.c" \
+<<<<<<< HEAD
+=======
+"../lcd_function.c" \
+>>>>>>> fsm_lcd_state
 "../main.c" \
 "../race.c" \
 "../startup_msp432p401r_ccs.c" \

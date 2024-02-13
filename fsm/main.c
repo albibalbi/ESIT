@@ -8,6 +8,12 @@
 #include "race.h"
 #include "booster_pack_pin_map.h"
 #include "state_machine.h"
+<<<<<<< HEAD
+=======
+#include "lcd_function.h"
+#include "LcdDriver/Crystalfontz128x128_ST7735.h"
+#include "LcdDriver/HAL_MSP_EXP432P401R_Crystalfontz128x128_ST7735.h"
+>>>>>>> fsm_lcd_state
 
 typedef enum Color{
     OFF, GREEN, RED, BLUE, PURPLE, YELLOW, WHITE
@@ -69,6 +75,19 @@ const Timer_A_UpModeConfig upConfig =
         TIMER_A_DO_CLEAR                        // Clear value
 };
 
+<<<<<<< HEAD
+=======
+void _hwInit()
+{
+    /* Halting WDT and disabling master interrupts */
+    WDT_A_holdTimer();
+    Interrupt_disableMaster();
+
+    _graphicsInit();
+    //_adcInit();
+}
+
+>>>>>>> fsm_lcd_state
 
 StateMachine_t fsm[] = {
   {STATE_FIXING, fn_FIXING},
@@ -91,11 +110,19 @@ volatile bool up=0;
 volatile bool down=0;
 volatile bool restart=0;
 volatile bool transmitted=0;
+<<<<<<< HEAD
+=======
+volatile bool set_lcd=1;
+>>>>>>> fsm_lcd_state
 
 int main(void){
 
     WDT_A_holdTimer();
+<<<<<<< HEAD
 
+=======
+    _hwInit();
+>>>>>>> fsm_lcd_state
     gps_init(&gps);
 
     GPIO_enable_pullup_all_buttons();
@@ -122,8 +149,16 @@ int main(void){
 }
 
 void fn_FIXING(){
+<<<<<<< HEAD
     LED_set_color(RED);
 
+=======
+
+    LED_set_color(RED);
+
+    lcd_show_state(current_state);
+
+>>>>>>> fsm_lcd_state
     if (1){
         current_state = STATE_IDLE;
     }else{
@@ -134,6 +169,12 @@ void fn_FIXING(){
 //waiting runs start (play button)
 void fn_IDLE(){
     LED_set_color(GREEN);
+<<<<<<< HEAD
+=======
+
+    lcd_show_state(current_state);
+
+>>>>>>> fsm_lcd_state
     transmitted=0;
     if (up){
         up = !up;
@@ -148,6 +189,11 @@ void fn_IDLE(){
 void fn_RUNNING(){
     LED_set_color(BLUE);
 
+<<<<<<< HEAD
+=======
+    lcd_show_state(current_state);
+
+>>>>>>> fsm_lcd_state
     if (up){
         up = !up;
         current_state = STATE_PAUSE;
@@ -169,6 +215,11 @@ void fn_RUNNING(){
 void fn_PAUSE(){
     LED_set_color(PURPLE);
 
+<<<<<<< HEAD
+=======
+    lcd_show_state(current_state);
+
+>>>>>>> fsm_lcd_state
     if (up){
         up = !up;
         race_set_pause_duration(&race, gps_get_time(&gps));
@@ -187,7 +238,12 @@ void fn_PAUSE(){
 void fn_ARRIVED(){
 
 
+<<<<<<< HEAD
     LED_set_color(WHITE);
+=======
+    LED_set_color(YELLOW);
+    lcd_show_state(current_state);
+>>>>>>> fsm_lcd_state
 
     if (!transmitted  && wifi_conn){
         transmitted =1;
@@ -357,6 +413,10 @@ void PORT5_IRQHandler(void)
 
     if(status & GPIO_PIN1 && (current_state == STATE_IDLE ||  current_state == STATE_RUNNING ||  current_state == STATE_PAUSE)){
         up = 1;
+<<<<<<< HEAD
+=======
+        set_lcd=1;
+>>>>>>> fsm_lcd_state
     }
 }
 
@@ -369,6 +429,10 @@ void PORT3_IRQHandler(void)
 
     if(status & GPIO_PIN5 && (current_state == STATE_PAUSE ||  current_state == STATE_ARRIVED )){
             down = 1;
+<<<<<<< HEAD
+=======
+            set_lcd=1;
+>>>>>>> fsm_lcd_state
     }
 
 }
@@ -384,6 +448,10 @@ void PORT1_IRQHandler(void)
           up=0;
           down=0;
           restart = 1;
+<<<<<<< HEAD
+=======
+          set_lcd=1;
+>>>>>>> fsm_lcd_state
     }
 
 }
