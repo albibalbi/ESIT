@@ -28,9 +28,7 @@
   - [Marco Panciera](https://github.com/panciut)
       - React FrontEnd
   - [Marco Ruzzon](https://github.com/ruzzlft)
-      - GPS library
   - [Alberto Balbinot](https://github.com/albibalbi)
-      -
 ## Links
 
 
