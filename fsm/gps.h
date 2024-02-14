@@ -87,4 +87,6 @@ float gps_get_instant_speed(Gps* gps);
 
 void gps_print_struct(Gps* gps);      //test function
 
+Gps gps;
+
 #endif

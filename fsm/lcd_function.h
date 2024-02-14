@@ -1,5 +1,5 @@
-#ifndef __RACE_H__
-#define __RACE_H__
+#ifndef __LCD_FUNCTION_H__
+#define __LCD_FUNCTION_H__
 
 #include "LcdDriver/Crystalfontz128x128_ST7735.h"
 #include "LcdDriver/HAL_MSP_EXP432P401R_Crystalfontz128x128_ST7735.h"

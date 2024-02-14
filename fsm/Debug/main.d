@@ -59,14 +59,12 @@ main.obj: ../race.h
 main.obj: ../gps.h
 main.obj: ../booster_pack_pin_map.h
 main.obj: ../state_machine.h
-<<<<<<< HEAD
-=======
 main.obj: ../lcd_function.h
 main.obj: ../LcdDriver/Crystalfontz128x128_ST7735.h
 main.obj: C:/ti/simplelink_msp432p4_sdk_3_40_01_02/source/ti/grlib/grlib.h
 main.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/assert.h
 main.obj: ../LcdDriver/HAL_MSP_EXP432P401R_Crystalfontz128x128_ST7735.h
->>>>>>> fsm_lcd_state
+main.obj: ../UART_function.h
 
 ../main.c:
 
@@ -186,8 +184,6 @@ C:/ti/simplelink_msp432p4_sdk_3_40_01_02/source/ti/devices/msp432p4xx/driverlib/
 
 ../state_machine.h:
 
-<<<<<<< HEAD
-=======
 ../lcd_function.h:
 
 ../LcdDriver/Crystalfontz128x128_ST7735.h:
@@ -198,4 +194,5 @@ C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/assert.h:
 
 ../LcdDriver/HAL_MSP_EXP432P401R_Crystalfontz128x128_ST7735.h:
 
->>>>>>> fsm_lcd_state
+../UART_function.h:
+

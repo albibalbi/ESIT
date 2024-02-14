@@ -162,3 +162,10 @@ void race_print_struct(Race* race){
         printf("altitude %d: %s\n", i, race->positions[i].altitude);
     }
 }
+
+void RACE_set_run_values(Race* race,Gps* gps){
+    race_set_instant_speed(race, gps_get_instant_speed(gps));
+    race_set_distance(race, gps_get_last_distance(gps));
+    race_set_run_duration(race,gps_get_time(gps));
+    race_set_heigh_difference(race, gps_get_last_altitude(gps));
+}
