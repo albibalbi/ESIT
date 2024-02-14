@@ -22,7 +22,15 @@
 
 ## Autors
   - [Nicolò Fadigà](https://github.com/HellNF)
-  -- NodeJS server
+    - NodeJS server
+    - Esp32 code
+    - MongoDB database and AWS server implementation
+  - [Marco Panciera](https://github.com/panciut)
+      - React FrontEnd
+  - [Marco Ruzzon](https://github.com/ruzzlft)
+      - GPS library
+  - [Alberto Balbinot](https://github.com/albibalbi)
+      -
 ## Links
 
 
