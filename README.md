@@ -21,6 +21,8 @@
 
 
 ## Autors
+  - [Nicolò Fadigà](https://github.com/HellNF)
+  -- NodeJS server
 ## Links
 
 
