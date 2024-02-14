@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <WiFiMulti.h>
 #include <HTTPClient.h>
-
+#define LED_WIFI_CONNECTION 2
 
 
 WiFiMulti wifiMulti;
@@ -25,14 +25,18 @@ void setup() {
   delay(3000);
   // Connessione al WiFi
   wifiMulti.addAP(ssid, pwd);
-
+  pinMode(LED_WIFI_CONNECTION, OUTPUT);
   Serial.println("Connessione in corso");
   
   
 
 }
 void loop() {
-   
+   if(wifiMulti.run() == WL_CONNECTED){
+    digitalWrite(LED_WIFI_CONNECTION, HIGH);
+  }else{
+    digitalWrite(LED_WIFI_CONNECTION, LOW);
+  }
   
   String c="";
   while(Serial2.available()>0){
