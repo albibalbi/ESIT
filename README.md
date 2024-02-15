@@ -149,11 +149,13 @@ Now ESP32 code is ready!
     - Esp32 code
     - MongoDB database and AWS server implementation
   - [Marco Panciera](https://github.com/panciut)
-    - React FrontEnd
+    - Javascript (React)  FrontEnd
+    - C functions for conversion between strings format
   - [Marco Ruzzon](https://github.com/ruzzlft)
-    - qualcosa
-  - [Alberto Balbinot](https://github.com/albibalbi)
-    - qualcosa
+    - Interface with GPS on MSP432
+    - Interface with UART on MSP432
+  - [Alberto Balbinot](https://github.com/albibalb)
+    - :camel:
 ## Links
   - [Demo Video]()
   - [Project presentation]()
