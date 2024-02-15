@@ -21,7 +21,13 @@
       
   
 ## About the project
-
+Welcome to the GPS Sport Tracker!
+This system has been designed to keep track of your sporting activities and routes. It utilizes a combination of microcontrollers and a GPS device to gather the data, which is then sent to the server for storage and later displayed on the website.
+The system include the following components:
+  - **MSP432** :Questo dispositivo campiona i dati ricevuti dal GPS,li elabora e li invia tramite UART a alla scheda ESP32.
+  - **ESP32** : Questo microcontrollore riceve i dati tramite seriale e permette di connettere il sitema ad internet allo scopo di inviare i dati al web server.
+  - **GPS Sensor**: questo sensore si connette ai satelliti, riceve e trasmette tramite seriale i dati ricevuti.
+  
 ## Project layout
 ## Basic 
 The Basic idea of the project is to develop a tracking system that enables you to see some statistics about your workout. The tracker can be used offline and the statistics are displayed on the LCD screen.
