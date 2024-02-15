@@ -96,20 +96,8 @@ First of all open Arduino IDE and go to `Tools > Board > Boards Manager`, search
 <img src="readmeImages/boardManagerW.png"  width="500">
 </p>
 
-Then we want to install the libraries required for the http comunication.
-
-Go to `Tools > Manage Libraries` and search for:
-
-1. HttpClient by Adrian McEwen
-2. WebServer_ESP32_SC_ENC by Khoi Hoang
-3. WiFiManager by tablatronix
 
 
-<p align="center">
-<img src="readmeImages/librariesManagerW.png"  width="500">
-</p>
-
-Nice, now your Arduino enviroment is ready.
 
 #### **MongoDB, MongoDBCompass**
 
@@ -121,11 +109,10 @@ You can create your local cluster with `MongoDB` and `MongoDBCompass` following 
 
 Otherwhise you can create your MongoDB account and create your cluster online. Follow this [guide](https://www.mongodb.com/basics/clusters/mongodb-cluster-setup) for that.
 
-Once you have your cluster you have to create one database, witch will be composed of two collections:
-1. Users
-2. Sensors_data
+Once you have your cluster you have to create one database, witch will be composed of one collection:
+  - positions
 
-It is very important to name these collection exactly in this way.
+
 
 At the end you should have something like this in your Database.
 
@@ -141,7 +128,7 @@ Now we have to modify some code to make it work for you.
 
 ### Set NodeJS server IP adress in ESP32 code
 
-We need to tell the ESP32 which address to send the data to so, in the `ESP32code` folder open `httpClient.cpp` in a text editor and change the 6th line. Insert the local IP address of the pc where the server will be running.
+We need to tell the ESP32 which address to send the data to so, in the `ESP32code` folder open `` in a text editor and change the 6th line. Insert the local IP address of the pc where the server will be running.
 
 ```c++
 // node server address
