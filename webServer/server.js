@@ -8,7 +8,7 @@ const app=express()
 const port = 3000  
 //middleware for cors rules
 app.use(cors({
-    origin: "*",
+    origin: "*", //allow access form any address --no restrictions
 }))
 //middleware for parsing request body to json
 app.use(bodyParser.json())
@@ -27,15 +27,15 @@ app.get('/api',async (req,res)=>{
     const date = req.query.date
     console.log(date)
     let temp
-    if(date!=null){
-        temp = await findByDate(date) //if there is a 
+    if(date!=null){ //if is required a specific date 
+        temp = await findByDate(date) // return a specific document on a specific date
     }
     else{
-        temp= await findAll()
+        temp= await findAll() // return all documents
     }
     res.set({'Content-type': 'application/json'})
     console.log(temp)
-    res.status(200).json(temp) 
+    res.status(200).json(temp) // set the status of the response in order to comunicate that the request well ended
 })
 //endpoint root used for testing
 app.get('/', (req,res)=>{
