@@ -24,14 +24,16 @@
 Welcome to the GPS Sport Tracker!
 This system has been designed to keep track of your sporting activities and routes. It utilizes a combination of microcontrollers and a GPS device to gather the data, which is then sent to the server for storage and later displayed on the website.
 The system include the following components:
-  - **MSP432** :Questo dispositivo campiona i dati ricevuti dal GPS,li elabora e li invia tramite UART a alla scheda ESP32.
-  - **ESP32** : Questo microcontrollore riceve i dati tramite seriale e permette di connettere il sitema ad internet allo scopo di inviare i dati al web server.
-  - **GPS Sensor**: questo sensore si connette ai satelliti, riceve e trasmette tramite seriale i dati ricevuti.
-Il tutto funziona dando l'avvio alla corsa dall'MSP432 tramite il menu di interazione, successivamente la scheda inizierà a campionare i dati ricevuti dal sensore GPS ogni Tot secondi.
+
+
+  - **MSP432** :This device samples the data received from the GPS, processes it, and sends it via UART to the ESP32 board.
+  - **ESP32** : This microcontroller receives data via serial communication and enables the system to connect to the internet in order to send data to the web server.
+  - **GPS Sensor**: This sensor connects to satellites, receives, and transmits the received data via serial communication.
+
+  Il tutto funziona dando l'avvio alla corsa dall'MSP432 tramite il menu di interazione, successivamente la scheda inizierà a campionare i dati ricevuti dal sensore GPS ogni Tot secondi.
 Una volta premuto il pulsante per terminare la corsa, i dati raccolti verranno elaborati, ricavando alcune statistiche utili e poi inviati alla scheda ESP32 che fino a quel momento era in attesa. Essa una volta ricevuti i dati li formatterà in formato JSON così da renderli conformi per l'inserimento nel database. Una volta formattati il programma verificherà se è connesso ad una rete Wifi e in caso affermativo li invierà al server che li inserirà all'interno del database MongoDB.
 Lato BackEnd il web server gestirà le varie richieste che possono arrivare sia dall ESP32 sia dal sito web.
 Infine il sito web tramite una richiesta GET al server otterrà i dati delle corse e li plotterà all'interno della mappa e mostrerà le statistiche nella dashboard.
-  
 ## Project layout
 ## Basic 
 The Basic idea of the project is to develop a tracking system that enables you to see some statistics about your workout. The tracker can be used offline and the statistics are displayed on the LCD screen.
@@ -150,6 +152,99 @@ We need to tell the ESP32 which address to send the data to so, in the `ESP32cod
 String serverNode = "http://<yourServerIP>:3000";
 ```
 Now ESP32 code is ready!
+
+
+## FrontEnd
+
+This is a Website that fetches data from an API on the server, displays it on a Leaflet map, and renders a Chart.js chart based on the selected data.
+
+following the guide below you will be able to modify and test the code.
+
+### Installation
+
+To run this application locally, you'll need to have Node.js and npm (Node Package Manager) installed. Follow these steps:
+
+1. **Install Node.js and npm:** If you haven't already installed Node.js and npm, you can download and install them from [here](https://nodejs.org/).
+
+2. **Clone the repository:** Clone this repository to your local machine using Git:
+
+   ```bash
+   git clone https://github.com/yourusername/this.git
+   ```
+
+3. **Navigate to the project directory:** Change into the project directory:
+
+   ```bash
+   cd MyDashboardApp
+   ```
+
+4. **Install dependencies:** Run the following command to install the required dependencies:
+
+   ```bash
+   npm install
+   ```
+
+   This will install all the necessary packages listed in the `package.json` file.
+
+### Running the Application
+
+Once you have installed the dependencies, you can run the application locally. Follow these steps:
+
+1. **Start the development server:** Run the following command to start the development server:
+
+   ```bash
+   npm start
+   ```
+
+2. **View the application:** Open your web browser and navigate to [http://localhost:3000](http://localhost:3000) to view the application.
+
+### Building the Project
+
+To build the project for production deployment, follow these steps:
+
+1. **Run the build command:** Execute the following command to build the project:
+
+   ```bash
+   npm run build
+   ```
+
+   This will create an optimized production build of the application in the `build` directory.
+
+2. **Serve the build:** You can serve the built files using a static server. For example, you can use `serve`:
+
+   ```bash
+   npm install -g serve
+   serve -s build
+   ```
+
+   This will serve the built application on [http://localhost:5000](http://localhost:5000).
+
+### Dependencies
+
+The following dependencies are used in this project:
+
+- [React](https://reactjs.org/): A JavaScript library for building user interfaces.
+- [Leaflet](https://leafletjs.com/): An open-source JavaScript library for interactive maps.
+- [Chart.js](https://www.chartjs.org/): Simple yet flexible JavaScript charting for designers & developers.
+- [axios](https://github.com/axios/axios): Promise-based HTTP client for the browser and Node.js.
+- [react-leaflet](https://react-leaflet.js.org/): React components for Leaflet maps.
+- [react-chartjs-2](https://www.npmjs.com/package/react-chartjs-2): React wrapper for Chart.js.
+- [leaflet](https://www.npmjs.com/package/leaflet): An open-source JavaScript library for mobile-friendly interactive maps.
+
+### Using Visual Studio Code
+
+[Visual Studio Code](https://code.visualstudio.com/) is a popular code editor for building and debugging modern web and cloud applications. Here's how to install and use Visual Studio Code:
+
+1. **Download Visual Studio Code:** Download and install Visual Studio Code from the [official website](https://code.visualstudio.com/).
+
+2. **Open the project:** Launch Visual Studio Code and open the `MyDashboardApp` project directory.
+
+3. **Install recommended extensions:** Visual Studio Code has a rich ecosystem of extensions that can enhance your development experience. You may consider installing some recommended extensions for React development, such as:
+   - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint): Provides linting capabilities for JavaScript and JSX files.
+   - [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode): Automatically formats your code according to configured rules.
+   - [Debugger for Chrome](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome): Allows you to debug your React applications running in the Chrome browser.
+
+4. **Start coding:** You can now start coding your React application using Visual Studio Code. Use features like IntelliSense, code navigation, and debugging to streamline your development workflow.
 
 
 
