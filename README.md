@@ -36,6 +36,11 @@ The next step is to create a new CCS project, choosing the right target system (
 Finally to run the project you will need to add to the linker option and to the compiler option the driverlib library downloading it at this [link](https://drive.google.com/file/d/1krZfBNAFiE6yAChQfHZVE-b0wfuDitgV/view?usp=sharing). 
 
 #### Linker options
+
+<p align="center">
+<img src="readmeImages/armCompilerOption.png" width="500">
+</p>
+
 #### Compiler options
 #### Basic Project wiring
 #### Basic Get started
