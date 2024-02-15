@@ -128,7 +128,7 @@ Now we have to modify some code to make it work for you.
 
 ### Set NodeJS server IP adress in ESP32 code
 
-We need to tell the ESP32 which address to send the data to so, in the `ESP32code` folder open `` in a text editor and change the 6th line. Insert the local IP address of the pc where the server will be running.
+We need to tell the ESP32 which address to send the data to so, in the `ESP32 Forwarding` folder open `uartReciverHttpSender.ino` in a text editor and change the line. Insert the local IP address of the pc where the server will be running.
 
 ```c++
 // node server address
