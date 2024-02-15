@@ -47,13 +47,13 @@ Finally to run the project you will need to add to the linker option and to the 
 #### Linker options
 
 <p align="center">
-<img src="readmeImages/libraryImage.png" width="500">
+<img src="readmeImages/CCSLinker.png" width="500">
 </p>
 
 #### Compiler options
 
 <p align="center">
-<img src="readmeImages/armCompilerOption.png" width="500">
+<img src="readmeImages/CCScompiler.png" width="500">
 </p>
 
 #### Basic Project wiring
