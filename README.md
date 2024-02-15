@@ -128,17 +128,21 @@ Now we have to install the Esp32 windows drivers in order to let to the OS to se
 ##### .env file for database URL
 Now we have to create a `.env` file in the `webServer` folder.
 Once you have created it, open it and in the first line write:
-`DATABASE_URL=mongodb+srv://<username>:<password>@<clusterName>.[randomCharacter].mongodb.net` 
+```
+DATABASE_URL=mongodb+srv://<username>:<password>@<clusterName>.[randomCharacter].mongodb.net
+``` 
 automatically MongoDB will provide you the right URL, in case you have created your cluster online it will look like the example above.
 ##### Set NodeJS server IP address in ESP32 code
 
-We need to tell the ESP32 which address to send the data to so, in the `ESP32 Forwarding` folder open `uartReciverHttpSender.ino` in a text editor and change the following lines. Insert the local IP address of the pc where the server will be running.
+We need to tell the ESP32 which address to send the data to so, in the `ESP32 Forwarding` folder open `uartReciverHttpSender.ino` in a text editor and change the following lines.Fill `ssid` and `pwd` with the credentials of your Wifi Network. 
+Insert the public IP of your server,in our case we used AWS to host the system, in other case if you host it on your pc use the local IP address.
 
 ```c++
 char* ssid="yourWifiNetwork"; //name of the wifi 
 char* pwd="yourPassword"; // password of the wifi
-char* ServerAddress="yourServerAddress" ;//address of the Nodejs sever
+char* ServerAddress="yourServerAddress" ;//address of the Nodejs server
 ```
+
 Now ESP32 code is ready!
 
 
