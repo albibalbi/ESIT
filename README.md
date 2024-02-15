@@ -171,7 +171,7 @@ To run this application locally, you'll need to have Node.js and npm (Node Packa
 3. **Navigate to the project directory:** Change into the project directory:
 
    ```bash
-   cd MyDashboardApp
+   cd ESIT/FrontEnd
    ```
 
 4. **Install dependencies:** Run the following command to install the required dependencies:
@@ -189,10 +189,17 @@ Once you have installed the dependencies, you can run the application locally. F
 1. **Start the development server:** Run the following command to start the development server:
 
    ```bash
-   npm start
+   npm run dev
    ```
 
-2. **View the application:** Open your web browser and navigate to [http://localhost:3000](http://localhost:3000) to view the application.
+2. **View the application:** Open your web browser and navigate to [http://localhost:4000](http://localhost:4000) to view the application.
+
+3. **Change the source of the data** We are using data fetched from our server but if you want to get it form somewhere else you just need to change this line of code in MyDashboard.jsx and update the URL.
+
+   ```javascrip
+    const response = await fetch('http://13.60.21.191:3000/api/');
+   ```
+   
 
 ### Dependencies
 
@@ -221,7 +228,37 @@ The following dependencies are used in this project:
 
 4. **Start coding:** You can now start coding your React application using Visual Studio Code. Use features like IntelliSense, code navigation, and debugging to streamline your development workflow.
 
+## JSON Format
 
+The data exchanged in this project follows a specific JSON format. Below is an example of the JSON structure used:
+
+```json
+{
+  "date": "15/02/24:12:12:12",
+  "duration": 3600,
+  "distance": 5000,
+  "avg_speed": 6.94,
+  "altitude_diff": 100,
+  "positions": [
+    {
+      "lat": 45.1234,
+      "lng": 10.5678,
+      "alt": 100
+    },
+    {
+      "lat": 45.2345,
+      "lng": 10.6789,
+      "alt": 105
+    }
+  ]
+}
+```
+- date: The date of the recorded activity.
+- duration: Duration of the activity in seconds.
+- distance: Distance covered during the activity in meters.
+- avg_speed: Average speed during the activity in km/h.
+- altitude_diff: Altitude difference during the activity in meters.
+- positions: An array of objects representing latitude, longitude, and altitude at different points during the activity.
 
 ## Autors
   - [Nicolò Fadigà](https://github.com/HellNF)
