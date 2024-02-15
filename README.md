@@ -165,7 +165,7 @@ To run this application locally, you'll need to have Node.js and npm (Node Packa
 2. **Clone the repository:** Clone this repository to your local machine using Git:
 
    ```bash
-   git clone https://github.com/yourusername/https://github.com/albibalbi/ESIT.git
+   git clone https://github.com/albibalbi/ESIT.git
    ```
 
 3. **Navigate to the project directory:** Change into the project directory:
