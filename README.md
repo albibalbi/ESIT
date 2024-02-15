@@ -27,6 +27,10 @@ The system include the following components:
   - **MSP432** :Questo dispositivo campiona i dati ricevuti dal GPS,li elabora e li invia tramite UART a alla scheda ESP32.
   - **ESP32** : Questo microcontrollore riceve i dati tramite seriale e permette di connettere il sitema ad internet allo scopo di inviare i dati al web server.
   - **GPS Sensor**: questo sensore si connette ai satelliti, riceve e trasmette tramite seriale i dati ricevuti.
+Il tutto funziona dando l'avvio alla corsa dall'MSP432 tramite il menu di interazione, successivamente la scheda inizierà a campionare i dati ricevuti dal sensore GPS ogni Tot secondi.
+Una volta premuto il pulsante per terminare la corsa, i dati raccolti verranno elaborati, ricavando alcune statistiche utili e poi inviati alla scheda ESP32 che fino a quel momento era in attesa. Essa una volta ricevuti i dati li formatterà in formato JSON così da renderli conformi per l'inserimento nel database. Una volta formattati il programma verificherà se è connesso ad una rete Wifi e in caso affermativo li invierà al server che li inserirà all'interno del database MongoDB.
+Lato BackEnd il web server gestirà le varie richieste che possono arrivare sia dall ESP32 sia dal sito web.
+Infine il sito web tramite una richiesta GET al server otterrà i dati delle corse e li plotterà all'interno della mappa e mostrerà le statistiche nella dashboard.
   
 ## Project layout
 ## Basic 
