@@ -165,7 +165,7 @@ To run this application locally, you'll need to have Node.js and npm (Node Packa
 2. **Clone the repository:** Clone this repository to your local machine using Git:
 
    ```bash
-   git clone https://github.com/yourusername/this.git
+   git clone https://github.com/yourusername/https://github.com/albibalbi/ESIT.git
    ```
 
 3. **Navigate to the project directory:** Change into the project directory:
@@ -193,27 +193,6 @@ Once you have installed the dependencies, you can run the application locally. F
    ```
 
 2. **View the application:** Open your web browser and navigate to [http://localhost:3000](http://localhost:3000) to view the application.
-
-### Building the Project
-
-To build the project for production deployment, follow these steps:
-
-1. **Run the build command:** Execute the following command to build the project:
-
-   ```bash
-   npm run build
-   ```
-
-   This will create an optimized production build of the application in the `build` directory.
-
-2. **Serve the build:** You can serve the built files using a static server. For example, you can use `serve`:
-
-   ```bash
-   npm install -g serve
-   serve -s build
-   ```
-
-   This will serve the built application on [http://localhost:5000](http://localhost:5000).
 
 ### Dependencies
 
