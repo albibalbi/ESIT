@@ -3,7 +3,7 @@ const { default: mongoose, model } = require('mongoose')
 //const mongoose=require('mongoose')
 require('dotenv').config()
 
-const database_url = process.env.DATABASE_URL
+const database_url = process.env.DATABASE_URL  // taking the database URL from the .env file
 
 mongoose.connect(database_url,).then(_=>
     {
@@ -11,6 +11,7 @@ mongoose.connect(database_url,).then(_=>
     }
 ).catch(e=>console.error(e))
 
+//Database documents structure
 const schema=new mongoose.Schema({
     "date": String,
     "duration": Number,
@@ -26,6 +27,7 @@ const schema=new mongoose.Schema({
     ]
     
 })
+//setting the schema to the collection
 const positionModule=mongoose.model("positions",schema)
 
 const insertTrk = async (obj)=>{
@@ -35,11 +37,12 @@ const insertTrk = async (obj)=>{
     console.log(e)
 
 }
-
+//Find by Date function
 const findByDate= async (dateTemp)=>{
     const trk=positionModule.findOne({date: dateTemp})
     return trk
 }
+//Find all documents
 const findAll= async ()=>{
     const trk=positionModule.find({})
     return trk

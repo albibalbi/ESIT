@@ -58,7 +58,7 @@ void printPositions(char** result, int positionStart, int positionCount, char* f
     sprintf(formattedString + strlen(formattedString), "\t]\n");
 }
 
-// Function to format input string as a JSON-like structure
+// Function to format input string as a JSON structure
 char* formatInputString(const char* inputString, char delimiter) {
     int count;
     char** result = splitString(inputString, delimiter, &count);
