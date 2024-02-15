@@ -10,7 +10,7 @@
 WiFiMulti wifiMulti;
 char* ssid="FASTWEB-E273A3-2.4GH"; //name of the wifi 
 char* pwd="1W3HEGTRGT"; // password of the wifi
-char* ServerAddress="http://13.60.21.191:3000/api" //address of the Nodejs sever
+char* ServerAddress="http://13.60.21.191:3000/api" ;//address of the Nodejs sever
 char delimiter = ';'; //delimiter used to split the string recived
 const char* input;
 
