@@ -193,7 +193,7 @@ Once you have installed the dependencies, you can run the application locally. F
 1. **Start the development server:** Run the following command to start the development server:
 
    ```bash
-   npm start
+   npm run dev
    ```
 
 2. **View the application:** Open your web browser and navigate to [http://localhost:3000](http://localhost:3000) to view the application.
