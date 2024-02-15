@@ -124,15 +124,20 @@ Now the configuration of the software is done, later we will have to modify some
 
 #### IoT get started
 
-Now we have to modify some code to make it work for you.
+Now we have to install the Esp32 windows drivers in order to let to the OS to see the board. You can follow this [**guide**](https://www.lelezapp.it/installare-driver-cp2102-per-programmare-esp32-in-windows/).
+##### .env file for database URL
+Now we have to create a `.env` file in the `webServer` folder.
+Once you have created it, open it and in the first line write:
+`DATABASE_URL=mongodb+srv://<username>:<password>@<clusterName>.[randomCharacter].mongodb.net` 
+automatically MongoDB will provide you the right URL, in case you have created your cluster online it will look like the example above.
+##### Set NodeJS server IP address in ESP32 code
 
-### Set NodeJS server IP adress in ESP32 code
-
-We need to tell the ESP32 which address to send the data to so, in the `ESP32 Forwarding` folder open `uartReciverHttpSender.ino` in a text editor and change the line. Insert the local IP address of the pc where the server will be running.
+We need to tell the ESP32 which address to send the data to so, in the `ESP32 Forwarding` folder open `uartReciverHttpSender.ino` in a text editor and change the following lines. Insert the local IP address of the pc where the server will be running.
 
 ```c++
-// node server address
-String serverNode = "http://<yourServerIP>:3000";
+char* ssid="yourWifiNetwork"; //name of the wifi 
+char* pwd="yourPassword"; // password of the wifi
+char* ServerAddress="yourServerAddress" ;//address of the Nodejs sever
 ```
 Now ESP32 code is ready!
 
