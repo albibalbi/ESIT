@@ -2,6 +2,7 @@
 <p align="center">
 <img src="readmeImages/Logo.jpg" width="200" >
 </p>
+
 ## Table of Contents
   - [About the project](#about-the-project)
   - [Project layout](#project-layout)
