@@ -1,5 +1,7 @@
 # GPS Sports Tracker IoT UniTN
-
+<p align="center">
+<img src="readmeImages/Logo.png" width="200">
+</p>
 ## Table of Contents
   - [About the project](#about-the-project)
   - [Project layout](#project-layout)
@@ -31,6 +33,9 @@ The system include the following components:
 The entire process starts by initiating the run from the MSP432 through the interaction menu. Subsequently, the board will start sampling data received from the GPS sensor every Tot seconds. Once the button to end the run is pressed, the collected data will be processed, extracting some useful statistics, and then sent to the ESP32 board, which was waiting until then. Upon receiving the data, it will format them into JSON format to make them suitable for insertion into the database. Once formatted, the program will check if it is connected to a Wi-Fi network, and if affirmative, it will send them to the server, which will insert them into the MongoDB database. On the backend side, the web server will handle various requests that can come from both ESP32 and the website. Finally, the website, through a GET request to the server, will obtain the run data and plot them on the map and display statistics in the dashboard.
 
 ## Project layout
+<p align="center">
+<img src="readmeImages/ESITProjectGraph.png" width="500">
+</p>
 ## Basic 
 The Basic idea of the project is to develop a tracking system that enables you to see some statistics about your workout. The tracker can be used offline and the statistics are displayed on the LCD screen.
 ### Basic Requirements
