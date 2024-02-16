@@ -117,9 +117,9 @@ Once you have your cluster you have to create one database, witch will be compos
 At the end you should have something like this in your Database.
 
 <p align="center">
-<img src="readmeImages/mongoDBCompass.png"  width="500">
+<img src="readmeImages/MongoDBCollection.png"  width="500">
 </p>
-
+You have to use the exact name of the collection.
 Now the configuration of the software is done, later we will have to modify some code!
 
 #### IoT get started
@@ -259,8 +259,8 @@ The data exchanged in this project follows a specific JSON format. Below is an e
 ## Autors
   - [Nicolò Fadigà](https://github.com/HellNF)
     - NodeJS server
-    - Esp32 code
-    - MongoDB database and AWS server implementation
+    - Esp32 code (UART reciver , HTTP client)
+    - Server deploy (Database and AWS server)
   - [Marco Panciera](https://github.com/panciut)
     - Javascript (React)  FrontEnd
     - C functions for conversion between strings format
