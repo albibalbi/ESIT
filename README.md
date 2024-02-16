@@ -37,6 +37,7 @@ The entire process starts by initiating the run from the MSP432 through the inte
 <p align="center">
 <img src="readmeImages/ESITprojectGraph.jpg" width="900">
 </p>
+
 ## Basic 
 The Basic idea of the project is to develop a tracking system that enables you to see some statistics about your workout. The tracker can be used offline and the statistics are displayed on the LCD screen.
 ### Basic Requirements
