@@ -237,7 +237,6 @@ void draw_page(int pos){
         sprintf(str_data_shown, "%s: %s%s",ds[pos].data_str, ds[pos].pfun(&race),ds[pos].uom);
     }
 
-    sprintf(str_data_shown, "%s: %s%s",ds[pos].data_str, ds[pos].pfun(&race),ds[pos].uom);
     Graphics_drawStringCentered(&g_sContext,
                                 (int8_t *)str_data_shown,
                                 AUTO_STRING_LENGTH,
