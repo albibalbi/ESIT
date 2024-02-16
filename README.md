@@ -1,6 +1,6 @@
 # GPS Sports Tracker IoT UniTN
 <p align="center">
-<img src="readmeImages/Logo.png" width="200">
+<img src="readmeImages/Logo.jpg" width="200" >
 </p>
 ## Table of Contents
   - [About the project](#about-the-project)
@@ -34,7 +34,7 @@ The entire process starts by initiating the run from the MSP432 through the inte
 
 ## Project layout
 <p align="center">
-<img src="readmeImages/ESITProjectGraph.png" width="500">
+<img src="readmeImages/ESITprojectGraph.jpg" width="900">
 </p>
 ## Basic 
 The Basic idea of the project is to develop a tracking system that enables you to see some statistics about your workout. The tracker can be used offline and the statistics are displayed on the LCD screen.
