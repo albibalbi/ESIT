@@ -17,7 +17,7 @@
 #include <string.h>
 
 
-/* Graphic library context */
+//* Graphic library context */
 Graphics_Context g_sContext;
 
 /* ADC results buffer */
@@ -48,7 +48,7 @@ const char* generate_random_integer_string(Race* race) {
     static char str[5]; // Definizione di una stringa locale statica
 
     // Genera un numero intero casuale tra 0 e 1000
-    int random_number = rand() % 100;
+    int random_number = rand() % 201;
 
     // Converte l'intero casuale in una stringa
     sprintf(str, "%d", random_number);
@@ -126,7 +126,7 @@ typedef enum {
 Event_j jevent=JSW_NONE;
 
 
-
+//internal fsm
 StateMachine_t_run fsm_run[] = {
   {STATE_DESELECT, fn_DESELECT},
   {STATE_RIGHT, fn_RIGHT},
@@ -134,6 +134,18 @@ StateMachine_t_run fsm_run[] = {
 };
 
 State_t_run current_state_run = STATE_DESELECT;
+
+
+//main fsm
+StateMachine_t fsm[] = {
+  {STATE_FIXING, fn_FIXING},
+  {STATE_IDLE, fn_IDLE},
+  {STATE_RUNNING, fn_RUNNING},
+  {STATE_PAUSE, fn_PAUSE},
+  {STATE_ARRIVED, fn_ARRIVED}
+};
+
+State_t current_state = STATE_FIXING;
 
 char* m_to_km(const char *input_str) {
     // Converti la stringa in un float
@@ -149,25 +161,6 @@ char* m_to_km(const char *input_str) {
     sprintf(output_str, "%.2f", result);
 
     return output_str;
-}
-
-
-
-
-
-char* truncate_string(const char *input_str) {
-    static char last_five[6]; // Buffer per contenere gli ultimi 5 caratteri e il terminatore nullo
-
-    // Controlla se la stringa di input è più lunga di 5 caratteri
-    if (strlen(input_str) >= 5) {
-        // Copia gli ultimi 5 caratteri nella stringa last_five
-        strcpy(last_five, input_str + strlen(input_str) - 5);
-    } else {
-        // Se la stringa di input è più corta di 5 caratteri, copia tutta la stringa
-        strcpy(last_five, input_str);
-    }
-
-    return last_five;
 }
 
 char* resize_string(const char *input_str) {
@@ -206,13 +199,15 @@ void draw_data(int pos,int32_t x_str,int32_t y_str, int32_t x_data, int32_t y_da
         sprintf(data_uom, "%s%s", ds[pos].pfun(&race),ds[pos].uom);
     }
 
-    if(pos==0){
+    if(pos==0 && current_state==STATE_RUNNING){
         sprintf(data_uom, "%s%s", resize_string(ds[pos].pfun(&race)),ds[pos].uom);
+     }else if(pos==0 && current_state==STATE_PAUSE){
+         sprintf(data_uom, "%s%s", " - - ",ds[pos].uom);
      }
 
     if(pos==1){
-            sprintf(data_uom, "%s%s", resize_string(m_to_km(ds[pos].pfun(&race))),ds[pos].uom);
-         }
+        sprintf(data_uom, "%s%s", resize_string(m_to_km(ds[pos].pfun(&race))),ds[pos].uom);
+    }
 
     Graphics_drawStringCentered(&g_sContext,
                                 (int8_t *)data_uom,
@@ -235,13 +230,14 @@ void draw_page(int pos){
                                 64,
                                 60,
                                 OPAQUE_TEXT);
-    if(pos==1){
 
+    if(pos==1){
         sprintf(str_data_shown, "%s: %s%s",ds[pos].data_str, m_to_km(ds[pos].pfun(&race)),ds[pos].uom);
     }else{
         sprintf(str_data_shown, "%s: %s%s",ds[pos].data_str, ds[pos].pfun(&race),ds[pos].uom);
     }
 
+    sprintf(str_data_shown, "%s: %s%s",ds[pos].data_str, ds[pos].pfun(&race),ds[pos].uom);
     Graphics_drawStringCentered(&g_sContext,
                                 (int8_t *)str_data_shown,
                                 AUTO_STRING_LENGTH,
@@ -346,10 +342,10 @@ void _graphicsInit()
 
     /* Initializes graphics context */
     Graphics_initContext(&g_sContext, &g_sCrystalfontz128x128, &g_sCrystalfontz128x128_funcs);
-        Graphics_setForegroundColor(&g_sContext, GRAPHICS_COLOR_RED);
-        Graphics_setBackgroundColor(&g_sContext, GRAPHICS_COLOR_WHITE);
-        GrContextFontSet(&g_sContext, &g_sFontFixed6x8);
-        Graphics_clearDisplay(&g_sContext);
+    Graphics_setForegroundColor(&g_sContext, GRAPHICS_COLOR_RED);
+    Graphics_setBackgroundColor(&g_sContext, GRAPHICS_COLOR_WHITE);
+    GrContextFontSet(&g_sContext, &g_sFontFixed6x8);
+    Graphics_clearDisplay(&g_sContext);
 }
 
 void _hwInit()
@@ -391,13 +387,13 @@ void INTERRUPT_enable(); //enable interrupt PORT1, EUSCI_2, TIMER_A
 
 void RACE_set_run_values(); //set all run values (speed, distance, run duration, high difference)
 
-//UART to use serial monitor (9600 baudrate 3Mhz clock)
+//UART to use serial monitor (9600 baudrate 12Mhz clock)
 const eUSCI_UART_ConfigV1 uartConfig0 =
     {
             EUSCI_A_UART_CLOCKSOURCE_SMCLK,          // SMCLK Clock Source
-            19,                                      // BRDIV = 19
-            8,                                       // UCxBRF = 8
-            85,                                      // UCxBRS = 85
+            78,                                      // BRDIV = 19
+            2,                                       // UCxBRF = 8
+            0,                                      // UCxBRS = 85
             EUSCI_A_UART_NO_PARITY,                  // No Parity
             EUSCI_A_UART_LSB_FIRST,                  // MSB First
             EUSCI_A_UART_ONE_STOP_BIT,               // One stop bit
@@ -410,9 +406,9 @@ const eUSCI_UART_ConfigV1 uartConfig0 =
 const eUSCI_UART_ConfigV1 uartConfig1 =
     {
             EUSCI_A_UART_CLOCKSOURCE_SMCLK,          // SMCLK Clock Source
-            19,                                      // BRDIV = 19
-            8,                                       // UCxBRF = 8
-            85,                                      // UCxBRS = 85
+            78,                                      // BRDIV = 19
+            2,                                       // UCxBRF = 8
+            0,                                      // UCxBRS = 85
             EUSCI_A_UART_NO_PARITY,                  // No Parity
             EUSCI_A_UART_LSB_FIRST,                  // MSB First
             EUSCI_A_UART_ONE_STOP_BIT,               // One stop bit
@@ -433,15 +429,6 @@ const Timer_A_UpModeConfig upConfig =
 };
 
 
-StateMachine_t fsm[] = {
-  {STATE_FIXING, fn_FIXING},
-  {STATE_IDLE, fn_IDLE},
-  {STATE_RUNNING, fn_RUNNING},
-  {STATE_PAUSE, fn_PAUSE},
-  {STATE_ARRIVED, fn_ARRIVED}
-};
-
-State_t current_state = STATE_FIXING;
 
 
 //control variables
@@ -498,7 +485,12 @@ void lcd_show_state(State_t current_state){
 int main(void){
     WDT_A_holdTimer();
     _hwInit();
+
+    //set frequency at 12Mhz
+    CS_setDCOCenteredFrequency(CS_DCO_FREQUENCY_12);
+
     gps_init(&gps);
+    race_init(&race);
 
     GPIO_enable_pullup_all_buttons();
     GPIO_enable_interrupt_all_buttons();
@@ -526,7 +518,10 @@ int main(void){
 void fn_FIXING(){
     LED_set_color(RED);
     lcd_show_state(current_state);
-    if (1){
+    /*if (gps_get_fix(&gps)){
+        current_state = STATE_IDLE;
+    }*/
+    if(1){
         current_state = STATE_IDLE;
     }else{
         current_state = STATE_FIXING;
@@ -538,22 +533,16 @@ void fn_IDLE(){
     LED_set_color(GREEN);
     lcd_show_state(current_state);
     GrRectDraw(&g_sContext, &main_rect );
+
     Graphics_drawStringCentered(&g_sContext,
                                     (int8_t *)"Press UP to start",
                                     20,
                                     64,
                                     50,
                                     OPAQUE_TEXT);
-
-    /*char date_str[10];
-    sprintf(date_str, "%s",race_get_start_date(&race));
-    Graphics_drawStringCentered(&g_sContext,
-                                       (int8_t *)date_str,
-                                       10,
-                                       100,
-                                       10,
-                                       OPAQUE_TEXT);*/
+    joystick_pressed=0;
     transmitted=0;
+    jevent=JSW_NONE;
     if (event==UP_PRESSED){
         event=SW_NONE;
         race_init(&race);
@@ -589,6 +578,7 @@ void fn_RUNNING(){
     }
     else{
         if (gps_data_valid(&gps) && gps_get_fix(&gps)){
+            gps_set_data_valid(&gps, 0);
             RACE_set_run_values();
             if (timer_a_edge){
                 timer_a_edge = !timer_a_edge;
@@ -657,19 +647,19 @@ void fn_ARRIVED(){
     LED_set_color(WHITE);
     lcd_show_state(current_state);
 
-    if (!transmitted  && wifi_conn){
-        transmitted =1;
-        UART_disableInterrupt(EUSCI_A2_BASE, EUSCI_A_UART_RECEIVE_INTERRUPT);
-
-        UART_transmit_all_data_race(EUSCI_A0_BASE, &race);
-        UART_transmit_all_data_race(EUSCI_A2_BASE, &race);
-
-        UART_enableInterrupt(EUSCI_A2_BASE, EUSCI_A_UART_RECEIVE_INTERRUPT);
-
-        race_init(&race);
-        UART_transmit_string(EUSCI_A0_BASE,"\r\n");
-    }if(event==DOWN_PRESSED){
+    if(event==DOWN_PRESSED){
         Graphics_clearDisplay(&g_sContext);
+        if (!transmitted  && wifi_conn){
+                transmitted =1;
+                UART_disableInterrupt(EUSCI_A2_BASE, EUSCI_A_UART_RECEIVE_INTERRUPT);
+
+                //UART_transmit_all_data_race(EUSCI_A0_BASE, &race);
+                UART_transmit_all_data_race(EUSCI_A2_BASE, &race);
+
+                UART_enableInterrupt(EUSCI_A2_BASE, EUSCI_A_UART_RECEIVE_INTERRUPT);
+
+                race_init(&race);
+        }
         current_state = STATE_IDLE;
     }else{
         if(!joystick_pressed){
@@ -705,7 +695,7 @@ void fn_ARRIVED(){
 void GPIO_enable_pullup_all_buttons(){
     GPIO_setAsInputPinWithPullUpResistor(BUTTON_LEFT);  //sinistra
     GPIO_setAsInputPinWithPullUpResistor(BUTTON_RIGHT);  //destra
-    GPIO_setAsInputPinWithPullUpResistor(BUTTON_UP);  //giù
+    GPIO_setAsInputPinWithPullUpResistor(BUTTON_UP);  //giu
     GPIO_setAsInputPinWithPullUpResistor(BUTTON_DOWN);  //su
 }
 
@@ -885,14 +875,15 @@ void EUSCIA2_IRQHandler(void)
     {
         char ch = UART_receiveData(EUSCI_A2_BASE);
         gps_encode(&gps, ch);
-        if (gps_data_valid(&gps)){
-            if (gps_get_fix(&gps)){
-                UART0_transmit_gps_data();
-            }else{
-                UART_transmit_string(EUSCI_A0_BASE, "signal not fixed\r\n");
-            }
-        }else{
-        }
+//        UART_transmitData(EUSCI_A0_BASE, ch);
+//        if (gps_data_valid(&gps)){
+//            if (gps_get_fix(&gps)){
+//                UART0_transmit_gps_data();
+//            }else{
+//                UART_transmit_string(EUSCI_A0_BASE, "signal not fixed\r\n");
+//            }
+//        }else{
+//        }
         UART_clearInterruptFlag(EUSCI_A2_BASE, EUSCI_A_UART_RECEIVE_INTERRUPT_FLAG);
     }
     Interrupt_disableSleepOnIsrExit();
@@ -1091,5 +1082,3 @@ void fn_LEFT(){
         current_state_run=STATE_LEFT;
     }
 }
-
-

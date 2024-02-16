@@ -112,11 +112,12 @@ const char* race_get_heigh_difference(Race* race){
 }
 
 char* race_make_data_title(Race* race){
-    char* str = (char*)malloc(sizeof(char) * 20);  // Allocate memory for a string of size 20
-
-    if (str == NULL) {
-        exit(EXIT_FAILURE);
-    }
+//    char* str = (char*)malloc(sizeof(char) * 20);  // Allocate memory for a string of size 20
+//
+//    if (str == NULL) {
+//        exit(EXIT_FAILURE);
+//    }
+    static char str[100];
     strcpy(str, race->start_date);strcat(str, ":");strcat(str, race->start_time);strcat(str, ";");
     strcat(str, int_to_string(race->run_duration)); strcat(str, ";");
     strcat(str, float_to_string(race->distance)); strcat(str, ";");

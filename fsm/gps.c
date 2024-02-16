@@ -175,7 +175,7 @@ void gps_init(Gps* gps){
 }
 
 void gps_encode(Gps* gps, char c){
-    gps->data_valid = 0;
+    //gps->data_valid = 0;
     if (c != '\n'){
         gps->buffer[gps->buffer_index++] = c;
     }else{
@@ -208,6 +208,10 @@ void gps_encode(Gps* gps, char c){
 
 bool gps_data_valid(Gps* gps){
     return gps->data_valid ? 1 : 0;
+}
+
+void gps_set_data_valid(Gps* gps, bool value){
+    gps->data_valid = value;
 }
 
 //return if the signal is fixed
@@ -271,4 +275,3 @@ void gps_print_struct(Gps* gps){
     printf("longitude: %s\n", gps->position.longitude);
     printf("altitude: %s\n", gps->position.altitude);
 }
-
