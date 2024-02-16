@@ -134,7 +134,7 @@ DATABASE_URL=mongodb+srv://<username>:<password>@<clusterName>.[randomCharacter]
 automatically MongoDB will provide you the right URL, in case you have created your cluster online it will look like the example above.
 ##### Set NodeJS server IP address in ESP32 code
 
-We need to tell the ESP32 which address to send the data to so, in the `ESP32 Forwarding` folder open `uartReciverHttpSender.ino` in a text editor and change the following lines.Fill `ssid` and `pwd` with the credentials of your Wifi Network. 
+We need to tell the ESP32 which address to send the data to so, in the `ESP32 Forwarding` folder open `ESP32.ino` in a text editor and change the following lines.Fill `ssid` and `pwd` with the credentials of your Wifi Network. 
 Insert the public IP of your server,in our case we used AWS to host the system, in other case if you host it on your pc use the local IP address.
 
 ```c++
