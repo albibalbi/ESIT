@@ -43,7 +43,7 @@ void loop() {
   String c="";
   //loop waiting for data on UART
   while(Serial2.available()>0){
-    c=Serial2.readStringUntil('\0');
+    c=Serial2.readStringUntil('\n');
 
   }
   
