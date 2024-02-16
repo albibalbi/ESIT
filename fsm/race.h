@@ -52,8 +52,4 @@ char* race_make_data_title(Race* race);
 //print
 void race_print_struct(Race* race);
 
-void RACE_set_run_values(Race* race,Gps* gps);
-
-Race race;
-
 #endif
