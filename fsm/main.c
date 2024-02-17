@@ -70,10 +70,10 @@ const char* generate_random_integer_string1(Race* race) {
 }
 
 Date_struct ds[] = {
-  {INST_SPEED,"SPEED",race_get_instant_speed ,"Kmh"},
+  {INST_SPEED,"SPEED",generate_random_integer_string ,"Kmh"},
   {DISTANCE,"DISTANCE",race_get_distance ,"km"},
   {DURATION ,"TIME",race_get_run_time,""},
-  {AVG_SPEED,"AVG SPEED",race_get_avg_speed,"kmh"},
+  {AVG_SPEED,"AVG SPEED",generate_random_integer_string,"kmh"},
   {HIGH_DIFF,"HIGH DIFF",race_get_heigh_difference,"m"}
 };
 
@@ -218,7 +218,7 @@ void draw_data(int pos,int32_t x_str,int32_t y_str, int32_t x_data, int32_t y_da
 }
 
 void draw_page(int pos){
-    Graphics_clearDisplay(&g_sContext);
+
 
     GrRectDraw(&g_sContext, &main_rect );
     GrContextFontSet(&g_sContext, &g_sFontFixed6x8);
@@ -231,9 +231,21 @@ void draw_page(int pos){
                                 60,
                                 OPAQUE_TEXT);
 
-    if(pos==1){
-        sprintf(str_data_shown, "%s: %s%s",ds[pos].data_str, m_to_km(ds[pos].pfun(&race)),ds[pos].uom);
-    }else{
+
+    Graphics_drawStringCentered(&g_sContext,
+                                    (int8_t *)"                   ",
+                                    AUTO_STRING_LENGTH,
+                                    64,
+                                    80,
+                                    OPAQUE_TEXT);
+    switch(pos){
+    case 1:
+        sprintf(str_data_shown, "%s: %s%s",ds[pos].data_str, resize_string(m_to_km(ds[pos].pfun(&race))),ds[pos].uom);
+        break;
+    case 3:
+        sprintf(str_data_shown, "%s: %s%s",ds[pos].data_str, resize_string(ds[pos].pfun(&race)),ds[pos].uom);
+        break;
+    default:
         sprintf(str_data_shown, "%s: %s%s",ds[pos].data_str, ds[pos].pfun(&race),ds[pos].uom);
     }
 
@@ -458,7 +470,7 @@ void lcd_show_state(State_t current_state){
         Graphics_setForegroundColor(&g_sContext, GRAPHICS_COLOR_PURPLE);
         break;
     case STATE_ARRIVED:
-        sprintf(state_str, "%7s","ARRIVED");
+        sprintf(state_str, "%s","ARRIVED ");
         Graphics_setForegroundColor(&g_sContext, GRAPHICS_COLOR_BLACK);
         break;
     default:
