@@ -8,6 +8,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "race.h"
+#include "state_machine_arrived.h"
+#include "state_machine.h"
+
 
 
 //* Graphic library context */
@@ -54,7 +57,7 @@ char* resize_string(const char *input_str) ;
 
 void draw_data(int pos,int32_t x_str,int32_t y_str, int32_t x_data, int32_t y_data,Race* race);
 
-void draw_page(int pos,Race* race);
+void draw_page(State_t_arrived current_state_arrived,Race* race);
 
 void change_position_l();
 void change_position_r();

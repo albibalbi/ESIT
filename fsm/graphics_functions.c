@@ -1,5 +1,5 @@
 #include "graphics_functions.h"
-#include "state_machine.h"
+
 
 
 void change_position_r(){
@@ -91,13 +91,13 @@ void draw_data(int pos,int32_t x_str,int32_t y_str, int32_t x_data, int32_t y_da
                                 OPAQUE_TEXT);
 }
 
-void draw_page(int pos, Race* race){
+void draw_page(State_t_arrived current_state_arrived, Race* race){
 
 
     GrRectDraw(&g_sContext, &main_rect );
     GrContextFontSet(&g_sContext, &g_sFontFixed6x8);
     char str_data_shown[25],str_page[10];
-    sprintf(str_page, "Page %d", (pos));
+    sprintf(str_page, "Page %d", (current_state_arrived));
     Graphics_drawStringCentered(&g_sContext,
                                 (int8_t *)str_page,
                                 AUTO_STRING_LENGTH,
@@ -112,15 +112,15 @@ void draw_page(int pos, Race* race){
                                     64,
                                     80,
                                     OPAQUE_TEXT);
-    switch(pos){
+    switch(current_state_arrived){
     case 1:
-        sprintf(str_data_shown, "%s: %s%s",ds[pos].data_str, resize_string(m_to_km(ds[pos].pfun(race))),ds[pos].uom);
+        sprintf(str_data_shown, "%s: %s%s",ds[current_state_arrived].data_str, resize_string(m_to_km(ds[current_state_arrived].pfun(race))),ds[current_state_arrived].uom);
         break;
     case 3:
-        sprintf(str_data_shown, "%s: %s%s",ds[pos].data_str, resize_string(ds[pos].pfun(race)),ds[pos].uom);
+        sprintf(str_data_shown, "%s: %s%s",ds[current_state_arrived].data_str, resize_string(ds[current_state_arrived].pfun(race)),ds[current_state_arrived].uom);
         break;
     default:
-        sprintf(str_data_shown, "%s: %s%s",ds[pos].data_str, ds[pos].pfun(race),ds[pos].uom);
+        sprintf(str_data_shown, "%s: %s%s",ds[current_state_arrived].data_str, ds[current_state_arrived].pfun(race),ds[current_state_arrived].uom);
     }
 
     Graphics_drawStringCentered(&g_sContext,

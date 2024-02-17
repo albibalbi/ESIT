@@ -55,6 +55,7 @@ main.obj: ../gps.h
 main.obj: ../booster_pack_pin_map.h
 main.obj: ../state_machine.h
 main.obj: ../state_machine_run.h
+main.obj: ../state_machine_arrived.h
 main.obj: ../graphics_functions.h
 main.obj: ../LcdDriver/Crystalfontz128x128_ST7735.h
 main.obj: C:/ti/simplelink_msp432p4_sdk_3_40_01_02/source/ti/grlib/grlib.h
@@ -177,6 +178,8 @@ C:/ti/simplelink_msp432p4_sdk_3_40_01_02/source/ti/devices/msp432p4xx/driverlib/
 ../state_machine.h:
 
 ../state_machine_run.h:
+
+../state_machine_arrived.h:
 
 ../graphics_functions.h:
 

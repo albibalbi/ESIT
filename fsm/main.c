@@ -4,6 +4,7 @@
 #include "booster_pack_pin_map.h"
 #include "state_machine.h"
 #include "state_machine_run.h"
+#include "state_machine_arrived.h"
 #include "graphics_functions.h"
 #include <ti/devices/msp432p4xx/inc/msp.h>
 #include <ti/grlib/grlib.h>
@@ -30,19 +31,19 @@ Race race;
 
 State_t current_state;
 StateMachine_t fsm[] = {
-  {STATE_FIXING, fn_FIXING},
-  {STATE_IDLE, fn_IDLE},
-  {STATE_RUNNING, fn_RUNNING},
-  {STATE_PAUSE, fn_PAUSE},
-  {STATE_ARRIVED, fn_ARRIVED}
+                        {STATE_FIXING, fn_FIXING},
+                        {STATE_IDLE, fn_IDLE},
+                        {STATE_RUNNING, fn_RUNNING},
+                        {STATE_PAUSE, fn_PAUSE},
+                        {STATE_ARRIVED, fn_ARRIVED}
 };
 
 Date_struct ds[] = {
-  {INST_SPEED,"SPEED",race_get_instant_speed ,"Kmh"},
-  {DISTANCE,"DISTANCE",race_get_distance ,"km"},
-  {DURATION ,"TIME",race_get_run_time,""},
-  {AVG_SPEED,"AVG SPEED",race_get_avg_speed,"kmh"},
-  {HIGH_DIFF,"HIGH DIFF",race_get_heigh_difference,"m"}
+                    {INST_SPEED,"SPEED",race_get_instant_speed ,"Kmh"},
+                    {DISTANCE,"DISTANCE",race_get_distance ,"km"},
+                    {DURATION ,"TIME",race_get_run_time,""},
+                    {AVG_SPEED,"AVG SPEED",race_get_avg_speed,"kmh"},
+                    {HIGH_DIFF,"HIGH DIFF",race_get_heigh_difference,"m"}
 };
 
 volatile int circular_buffer[]={0,1,2};
@@ -82,6 +83,8 @@ volatile bool running_pause_entered=0;
 int pos=1;
 volatile int joystick_pressed=0;
 
+bool page_drawn=0;
+
 
 
 
@@ -100,52 +103,61 @@ Event_j jevent=JSW_NONE;
 
 //internal fsm
 StateMachine_t_run fsm_run[] = {
-  {STATE_DESELECT, fn_DESELECT},
-  {STATE_RIGHT, fn_RIGHT},
-  {STATE_LEFT, fn_LEFT}
+                                {STATE_DESELECT, fn_DESELECT},
+                                {STATE_RIGHT, fn_RIGHT},
+                                {STATE_LEFT, fn_LEFT}
 };
 
 State_t_run current_state_run = STATE_DESELECT;
 
+//internal fsm
+StateMachine_t_arrived fsm_arrived[] = {
+                                {STATE_PAGE0, fn_PAGE0},
+                                {STATE_PAGE1, fn_PAGE1},
+                                {STATE_PAGE2, fn_PAGE2},
+                                {STATE_PAGE3, fn_PAGE3},
+                                {STATE_PAGE4, fn_PAGE4}
+};
 
+State_t_arrived current_state_arrived = STATE_PAGE0;
 
 
 void _adcInit(){
     /* Configures Pin 6.0 and 4.4 as ADC input */
-        GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P6, GPIO_PIN0, GPIO_TERTIARY_MODULE_FUNCTION);
-        GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P4, GPIO_PIN4, GPIO_TERTIARY_MODULE_FUNCTION);
+    GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P6, GPIO_PIN0, GPIO_TERTIARY_MODULE_FUNCTION);
+    GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P4, GPIO_PIN4, GPIO_TERTIARY_MODULE_FUNCTION);
 
-        /* Initializing ADC (ADCOSC/64/8) */
-        ADC14_enableModule();
-        ADC14_initModule(ADC_CLOCKSOURCE_ADCOSC, ADC_PREDIVIDER_64, ADC_DIVIDER_8, 0);
+    /* Initializing ADC (ADCOSC/64/8) */
+    ADC14_enableModule();
+    ADC14_initModule(ADC_CLOCKSOURCE_ADCOSC, ADC_PREDIVIDER_64, ADC_DIVIDER_8, 0);
 
-        /* Configuring ADC Memory (ADC_MEM0 - ADC_MEM1 (A15, A9)  with repeat)
-             * with internal 2.5v reference */
-        ADC14_configureMultiSequenceMode(ADC_MEM0, ADC_MEM1, true);
-        ADC14_configureConversionMemory(ADC_MEM0,
-                ADC_VREFPOS_AVCC_VREFNEG_VSS,
-                ADC_INPUT_A15, ADC_NONDIFFERENTIAL_INPUTS);
+    /* Configuring ADC Memory (ADC_MEM0 - ADC_MEM1 (A15, A9)  with repeat)
+     * with internal 2.5v reference */
+    ADC14_configureMultiSequenceMode(ADC_MEM0, ADC_MEM1, true);
+    ADC14_configureConversionMemory(ADC_MEM0,
+                                    ADC_VREFPOS_AVCC_VREFNEG_VSS,
+                                    ADC_INPUT_A15, ADC_NONDIFFERENTIAL_INPUTS);
 
-        ADC14_configureConversionMemory(ADC_MEM1,
-                ADC_VREFPOS_AVCC_VREFNEG_VSS,
-                ADC_INPUT_A9, ADC_NONDIFFERENTIAL_INPUTS);
+    ADC14_configureConversionMemory(ADC_MEM1,
+                                    ADC_VREFPOS_AVCC_VREFNEG_VSS,
+                                    ADC_INPUT_A9, ADC_NONDIFFERENTIAL_INPUTS);
 
-        /* Enabling the interrupt when a conversion on channel 1 (end of sequence)
-         *  is complete and enabling conversions */
-        ADC14_enableInterrupt(ADC_INT1);
+    /* Enabling the interrupt when a conversion on channel 1 (end of sequence)
+     *  is complete and enabling conversions */
+    ADC14_enableInterrupt(ADC_INT1);
 
-        /* Enabling Interrupts */
-        Interrupt_enableInterrupt(INT_ADC14);
-        Interrupt_enableMaster();
+    /* Enabling Interrupts */
+    Interrupt_enableInterrupt(INT_ADC14);
+    Interrupt_enableMaster();
 
-        /* Setting up the sample timer to automatically step through the sequence
-         * convert.
-         */
-        ADC14_enableSampleTimer(ADC_AUTOMATIC_ITERATION);
+    /* Setting up the sample timer to automatically step through the sequence
+     * convert.
+     */
+    ADC14_enableSampleTimer(ADC_AUTOMATIC_ITERATION);
 
-        /* Triggering the start of the sample */
-        ADC14_enableConversion();
-        ADC14_toggleConversionTrigger();
+    /* Triggering the start of the sample */
+    ADC14_enableConversion();
+    ADC14_toggleConversionTrigger();
 }
 
 
@@ -206,43 +218,43 @@ void RACE_set_run_values(); //set all run values (speed, distance, run duration,
 
 //UART to use serial monitor (9600 baudrate 12Mhz clock)
 const eUSCI_UART_ConfigV1 uartConfig0 =
-    {
-            EUSCI_A_UART_CLOCKSOURCE_SMCLK,          // SMCLK Clock Source
-            78,                                      // BRDIV = 19
-            2,                                       // UCxBRF = 8
-            0,                                      // UCxBRS = 85
-            EUSCI_A_UART_NO_PARITY,                  // No Parity
-            EUSCI_A_UART_LSB_FIRST,                  // MSB First
-            EUSCI_A_UART_ONE_STOP_BIT,               // One stop bit
-            EUSCI_A_UART_MODE,                       // UART mode
-            EUSCI_A_UART_OVERSAMPLING_BAUDRATE_GENERATION,  // Oversampling
-            EUSCI_A_UART_8_BIT_LEN                  // 8 bit data length
-    };
+{
+ EUSCI_A_UART_CLOCKSOURCE_SMCLK,          // SMCLK Clock Source
+ 78,                                      // BRDIV = 19
+ 2,                                       // UCxBRF = 8
+ 0,                                      // UCxBRS = 85
+ EUSCI_A_UART_NO_PARITY,                  // No Parity
+ EUSCI_A_UART_LSB_FIRST,                  // MSB First
+ EUSCI_A_UART_ONE_STOP_BIT,               // One stop bit
+ EUSCI_A_UART_MODE,                       // UART mode
+ EUSCI_A_UART_OVERSAMPLING_BAUDRATE_GENERATION,  // Oversampling
+ EUSCI_A_UART_8_BIT_LEN                  // 8 bit data length
+};
 
 //UART to use GPS and ESP32 (9600 baudrate 3Mhz clock)
 const eUSCI_UART_ConfigV1 uartConfig1 =
-    {
-            EUSCI_A_UART_CLOCKSOURCE_SMCLK,          // SMCLK Clock Source
-            78,                                      // BRDIV = 19
-            2,                                       // UCxBRF = 8
-            0,                                      // UCxBRS = 85
-            EUSCI_A_UART_NO_PARITY,                  // No Parity
-            EUSCI_A_UART_LSB_FIRST,                  // MSB First
-            EUSCI_A_UART_ONE_STOP_BIT,               // One stop bit
-            EUSCI_A_UART_MODE,                       // UART mode
-            EUSCI_A_UART_OVERSAMPLING_BAUDRATE_GENERATION,  // Oversampling
-            EUSCI_A_UART_8_BIT_LEN                  // 8 bit data length
-    };
+{
+ EUSCI_A_UART_CLOCKSOURCE_SMCLK,          // SMCLK Clock Source
+ 78,                                      // BRDIV = 19
+ 2,                                       // UCxBRF = 8
+ 0,                                      // UCxBRS = 85
+ EUSCI_A_UART_NO_PARITY,                  // No Parity
+ EUSCI_A_UART_LSB_FIRST,                  // MSB First
+ EUSCI_A_UART_ONE_STOP_BIT,               // One stop bit
+ EUSCI_A_UART_MODE,                       // UART mode
+ EUSCI_A_UART_OVERSAMPLING_BAUDRATE_GENERATION,  // Oversampling
+ EUSCI_A_UART_8_BIT_LEN                  // 8 bit data length
+};
 
 //Configuration TIMER_A a 2 secons (0.5 Hz)
 const Timer_A_UpModeConfig upConfig =
 {
-        TIMER_A_CLOCKSOURCE_ACLK,               // ACLK Clock Source 32.768kHz
-        TIMER_A_CLOCKSOURCE_DIVIDER_64,         // ACLK/64 = 32768/64 = 512
-        0x400,                                 // 0x1400 = 0.1Hz / 0x400 = 0.5Hz
-        TIMER_A_TAIE_INTERRUPT_DISABLE,         // Disable Timer interrupt
-        TIMER_A_CCIE_CCR0_INTERRUPT_ENABLE ,    // Enable CCR0 interrupt
-        TIMER_A_DO_CLEAR                        // Clear value
+ TIMER_A_CLOCKSOURCE_ACLK,               // ACLK Clock Source 32.768kHz
+ TIMER_A_CLOCKSOURCE_DIVIDER_64,         // ACLK/64 = 32768/64 = 512
+ 0x400,                                 // 0x1400 = 0.1Hz / 0x400 = 0.5Hz
+ TIMER_A_TAIE_INTERRUPT_DISABLE,         // Disable Timer interrupt
+ TIMER_A_CCIE_CCR0_INTERRUPT_ENABLE ,    // Enable CCR0 interrupt
+ TIMER_A_DO_CLEAR                        // Clear value
 };
 
 
@@ -352,24 +364,26 @@ void fn_IDLE(){
     GrRectDraw(&g_sContext, &main_rect );
 
     Graphics_drawStringCentered(&g_sContext,
-                                    (int8_t *)"Press UP to start",
-                                    20,
-                                    64,
-                                    50,
-                                    OPAQUE_TEXT);
+                                (int8_t *)"Press UP to start",
+                                20,
+                                64,
+                                50,
+                                OPAQUE_TEXT);
     joystick_pressed=0;
     transmitted=0;
+    page_drawn=0;
     jevent=JSW_NONE;
+    current_state_arrived=STATE_PAGE0;
     if (event==UP_PRESSED){
         event=SW_NONE;
         race_init(&race);
         race_set_start_date_time(&race, gps_get_date(&gps), gps_get_time(&gps));
         Graphics_drawStringCentered(&g_sContext,
-                                            (int8_t *)"                  ",
-                                            20,
-                                            64,
-                                            50,
-                                            OPAQUE_TEXT);
+                                    (int8_t *)"                  ",
+                                    20,
+                                    64,
+                                    50,
+                                    OPAQUE_TEXT);
         current_state = STATE_RUNNING;
     }else{
         current_state = STATE_IDLE;
@@ -464,46 +478,53 @@ void fn_ARRIVED(){
     LED_set_color(WHITE);
     lcd_show_state(current_state);
 
+    jevent=JSW_NONE;
+
     if(event==DOWN_PRESSED){
         Graphics_clearDisplay(&g_sContext);
         if (!transmitted  && wifi_conn){
-                transmitted =1;
-                UART_disableInterrupt(EUSCI_A2_BASE, EUSCI_A_UART_RECEIVE_INTERRUPT);
+            transmitted =1;
+            UART_disableInterrupt(EUSCI_A2_BASE, EUSCI_A_UART_RECEIVE_INTERRUPT);
 
-                //UART_transmit_all_data_race(EUSCI_A0_BASE, &race);
-                UART_transmit_all_data_race(EUSCI_A2_BASE, &race);
+            //UART_transmit_all_data_race(EUSCI_A0_BASE, &race);
+            UART_transmit_all_data_race(EUSCI_A2_BASE, &race);
 
-                UART_enableInterrupt(EUSCI_A2_BASE, EUSCI_A_UART_RECEIVE_INTERRUPT);
+            UART_enableInterrupt(EUSCI_A2_BASE, EUSCI_A_UART_RECEIVE_INTERRUPT);
 
-                race_init(&race);
+            race_init(&race);
         }
         current_state = STATE_IDLE;
     }else{
         if(!joystick_pressed){
             Graphics_setFont(&g_sContext,&g_sFontCmss14);
-                        Graphics_drawStringCentered(&g_sContext,
-                                                    (int8_t *)"Press joystick",
-                                                    AUTO_STRING_LENGTH,
-                                                    64,
-                                                    40,
-                                                    OPAQUE_TEXT);
+            Graphics_drawStringCentered(&g_sContext,
+                                        (int8_t *)"Press joystick",
+                                        AUTO_STRING_LENGTH,
+                                        64,
+                                        40,
+                                        OPAQUE_TEXT);
 
-                        GrContextFontSet(&g_sContext, &g_sFontFixed6x8);
+            GrContextFontSet(&g_sContext, &g_sFontFixed6x8);
         }else {
             Graphics_setFont(&g_sContext,&g_sFontCmss14);
-                                    Graphics_drawStringCentered(&g_sContext,
-                                                                (int8_t *)"              ",
-                                                                AUTO_STRING_LENGTH,
-                                                                64,
-                                                                40,
-                                                                OPAQUE_TEXT);
+            Graphics_drawStringCentered(&g_sContext,
+                                        (int8_t *)"              ",
+                                        AUTO_STRING_LENGTH,
+                                        64,
+                                        40,
+                                        OPAQUE_TEXT);
 
-                                    GrContextFontSet(&g_sContext, &g_sFontFixed6x8);
+            GrContextFontSet(&g_sContext, &g_sFontFixed6x8);
         }
 
-            GrRectDraw(&g_sContext, &main_rect );
+        GrRectDraw(&g_sContext, &main_rect );
+        if(current_state_arrived < NUM_STATES_ARRIVED){
+            (*fsm_arrived[current_state_arrived].state_function_arrived)();
+        }else{
+            /* serious error */
+        }
         current_state = STATE_ARRIVED;
-     }
+    }
 
 
 
@@ -536,27 +557,27 @@ void GPIO_enable_leds(){
 
 void LED_set_color(Color color){
     switch(color){
-        case OFF:
-            GPIO_setOutputLowOnPin(RGB_LED_GREEN); GPIO_setOutputLowOnPin(RGB_LED_RED);GPIO_setOutputLowOnPin(RGB_LED_BLUE);
-            break;
-        case GREEN:
-            GPIO_setOutputHighOnPin(RGB_LED_GREEN); GPIO_setOutputLowOnPin(RGB_LED_RED);GPIO_setOutputLowOnPin(RGB_LED_BLUE);
-            break;
-        case RED:
-            GPIO_setOutputHighOnPin(RGB_LED_RED); GPIO_setOutputLowOnPin(RGB_LED_GREEN);GPIO_setOutputLowOnPin(RGB_LED_BLUE);
-            break;
-        case BLUE:
-            GPIO_setOutputHighOnPin(RGB_LED_BLUE); GPIO_setOutputLowOnPin(RGB_LED_RED);GPIO_setOutputLowOnPin(RGB_LED_GREEN);
-            break;
-        case PURPLE:
-            GPIO_setOutputHighOnPin(RGB_LED_BLUE); GPIO_setOutputHighOnPin(RGB_LED_RED);GPIO_setOutputLowOnPin(RGB_LED_GREEN);
-            break;
-        case YELLOW:
-            GPIO_setOutputHighOnPin(RGB_LED_RED); GPIO_setOutputHighOnPin(RGB_LED_GREEN);GPIO_setOutputLowOnPin(RGB_LED_BLUE);
-            break;
-        case WHITE:
-            GPIO_setOutputHighOnPin(RGB_LED_BLUE); GPIO_setOutputHighOnPin(RGB_LED_RED);GPIO_setOutputHighOnPin(RGB_LED_GREEN);
-            break;
+    case OFF:
+        GPIO_setOutputLowOnPin(RGB_LED_GREEN); GPIO_setOutputLowOnPin(RGB_LED_RED);GPIO_setOutputLowOnPin(RGB_LED_BLUE);
+        break;
+    case GREEN:
+        GPIO_setOutputHighOnPin(RGB_LED_GREEN); GPIO_setOutputLowOnPin(RGB_LED_RED);GPIO_setOutputLowOnPin(RGB_LED_BLUE);
+        break;
+    case RED:
+        GPIO_setOutputHighOnPin(RGB_LED_RED); GPIO_setOutputLowOnPin(RGB_LED_GREEN);GPIO_setOutputLowOnPin(RGB_LED_BLUE);
+        break;
+    case BLUE:
+        GPIO_setOutputHighOnPin(RGB_LED_BLUE); GPIO_setOutputLowOnPin(RGB_LED_RED);GPIO_setOutputLowOnPin(RGB_LED_GREEN);
+        break;
+    case PURPLE:
+        GPIO_setOutputHighOnPin(RGB_LED_BLUE); GPIO_setOutputHighOnPin(RGB_LED_RED);GPIO_setOutputLowOnPin(RGB_LED_GREEN);
+        break;
+    case YELLOW:
+        GPIO_setOutputHighOnPin(RGB_LED_RED); GPIO_setOutputHighOnPin(RGB_LED_GREEN);GPIO_setOutputLowOnPin(RGB_LED_BLUE);
+        break;
+    case WHITE:
+        GPIO_setOutputHighOnPin(RGB_LED_BLUE); GPIO_setOutputHighOnPin(RGB_LED_RED);GPIO_setOutputHighOnPin(RGB_LED_GREEN);
+        break;
     }
 }
 
@@ -580,17 +601,17 @@ void UART_transmit_string(uint32_t moduleInstance, const char* str){
 }
 
 void UART_transmit_all_data_race(uint32_t moduleInstance, Race* race){
-        char* data_title = race_make_data_title(race);
-        UART_transmit_string(moduleInstance,data_title);
-        int i;
-        for (i=0 ; i<race->positions_index; i++){
-                UART_transmit_string(moduleInstance, race->positions[i].longitude);UART_transmit_string(moduleInstance,";");
-                UART_transmit_string(moduleInstance, race->positions[i].latitude);UART_transmit_string(moduleInstance,";");
-                UART_transmit_string(moduleInstance, race->positions[i].altitude);UART_transmit_string(moduleInstance,";");
-            }
-        UART_transmit_string(moduleInstance,"\r\n");
-        free(data_title);
+    char* data_title = race_make_data_title(race);
+    UART_transmit_string(moduleInstance,data_title);
+    int i;
+    for (i=0 ; i<race->positions_index; i++){
+        UART_transmit_string(moduleInstance, race->positions[i].longitude);UART_transmit_string(moduleInstance,";");
+        UART_transmit_string(moduleInstance, race->positions[i].latitude);UART_transmit_string(moduleInstance,";");
+        UART_transmit_string(moduleInstance, race->positions[i].altitude);UART_transmit_string(moduleInstance,";");
     }
+    UART_transmit_string(moduleInstance,"\r\n");
+    free(data_title);
+}
 
 void UART0_transmit_gps_data(){
     UART_transmit_string(EUSCI_A0_BASE, "\r\n");
@@ -692,15 +713,15 @@ void EUSCIA2_IRQHandler(void)
     {
         char ch = UART_receiveData(EUSCI_A2_BASE);
         gps_encode(&gps, ch);
-//        UART_transmitData(EUSCI_A0_BASE, ch);
-//        if (gps_data_valid(&gps)){
-//            if (gps_get_fix(&gps)){
-//                UART0_transmit_gps_data();
-//            }else{
-//                UART_transmit_string(EUSCI_A0_BASE, "signal not fixed\r\n");
-//            }
-//        }else{
-//        }
+        //        UART_transmitData(EUSCI_A0_BASE, ch);
+        //        if (gps_data_valid(&gps)){
+        //            if (gps_get_fix(&gps)){
+        //                UART0_transmit_gps_data();
+        //            }else{
+        //                UART_transmit_string(EUSCI_A0_BASE, "signal not fixed\r\n");
+        //            }
+        //        }else{
+        //        }
         UART_clearInterruptFlag(EUSCI_A2_BASE, EUSCI_A_UART_RECEIVE_INTERRUPT_FLAG);
     }
     Interrupt_disableSleepOnIsrExit();
@@ -720,47 +741,23 @@ void ADC14_IRQHandler(void)
         resultsBuffer[0] = ADC14_getResult(ADC_MEM0);
         resultsBuffer[1] = ADC14_getResult(ADC_MEM1);
 
-        if(resultsBuffer[0]>10600 && (current_state_run==STATE_DESELECT || current_state_run==STATE_LEFT)){
+        //for state_machine_run
+        if(resultsBuffer[0]>10600 && (current_state_run==STATE_DESELECT || current_state_run==STATE_LEFT ||
+                current_state_arrived==STATE_PAGE1 || current_state_arrived==STATE_PAGE2 || current_state_arrived==STATE_PAGE3 || current_state_arrived==STATE_PAGE4)){
             jevent=JR_PRESSED;
         }
 
-        if(resultsBuffer[0]<10000 && (current_state_run==STATE_DESELECT || current_state_run==STATE_RIGHT)){
-              jevent=JL_PRESSED;
+        if(resultsBuffer[0]<10000 && (current_state_run==STATE_DESELECT || current_state_run==STATE_RIGHT ||
+                current_state_arrived==STATE_PAGE1 || current_state_arrived==STATE_PAGE2 || current_state_arrived==STATE_PAGE3 || current_state_arrived==STATE_PAGE4)){
+            jevent=JL_PRESSED;
         }
 
         if(resultsBuffer[1]>14000  && (current_state_run==STATE_RIGHT || current_state_run==STATE_LEFT)){
-                jevent=JUP_PRESSED;
+            jevent=JUP_PRESSED;
         }
 
-        if (!(P4IN & GPIO_PIN1) && (current_state_run==STATE_RIGHT || current_state_run==STATE_LEFT)){
+        if (!(P4IN & GPIO_PIN1) && (current_state_run==STATE_RIGHT || current_state_run==STATE_LEFT || current_state_arrived==STATE_PAGE0)){
             jevent=J_PRESSED;
-        }
-
-        if(current_state==STATE_ARRIVED){
-            if(resultsBuffer[0]>10600 && joystick_pressed){
-
-                        pos++;
-                        pos=pos%NUM;
-                        if(pos==0) pos++;
-
-                        draw_page(pos,&race);
-
-                    }
-
-                    if(resultsBuffer[0]<10000 && joystick_pressed){
-
-                        pos--;
-                        if(pos<1) pos=NUM-1;
-
-                        draw_page(pos,&race);
-                    }
-
-
-                    if (!(P4IN & GPIO_PIN1) && !joystick_pressed){
-                        joystick_pressed=1;
-
-                        draw_page(1,&race);
-                    }
         }
 
 
@@ -823,11 +820,11 @@ void fn_RIGHT(){
         Graphics_setForegroundColor(&g_sContext, GRAPHICS_COLOR_BLACK);
         GrContextFontSet(&g_sContext, &g_sFontCmtt14);
         Graphics_drawStringCentered(&g_sContext,
-                                                (int8_t *)"            ",
-                                                AUTO_STRING_LENGTH,
-                                                64,
-                                                50,
-                                                OPAQUE_TEXT);
+                                    (int8_t *)"            ",
+                                    AUTO_STRING_LENGTH,
+                                    64,
+                                    50,
+                                    OPAQUE_TEXT);
         GrContextFontSet(&g_sContext, &g_sFontFixed6x8);
         current_state_run=STATE_DESELECT;
     }else{
@@ -879,11 +876,11 @@ void fn_LEFT(){
         Graphics_setForegroundColor(&g_sContext, GRAPHICS_COLOR_BLACK);
         GrContextFontSet(&g_sContext, &g_sFontCmtt14);
         Graphics_drawStringCentered(&g_sContext,
-                                                        (int8_t *)"           ",
-                                                        AUTO_STRING_LENGTH,
-                                                        64,
-                                                        50,
-                                                        OPAQUE_TEXT);
+                                    (int8_t *)"           ",
+                                    AUTO_STRING_LENGTH,
+                                    64,
+                                    50,
+                                    OPAQUE_TEXT);
         GrContextFontSet(&g_sContext, &g_sFontFixed6x8);
         current_state_run=STATE_DESELECT;
     }else{
@@ -899,3 +896,98 @@ void fn_LEFT(){
         current_state_run=STATE_LEFT;
     }
 }
+
+void fn_PAGE0(){
+    if(jevent==J_PRESSED){
+        joystick_pressed=1;
+        current_state_arrived=STATE_PAGE1;
+    }else{
+        jevent=JSW_NONE;
+        current_state_arrived=STATE_PAGE0;
+    }
+}
+
+void fn_PAGE1(){
+
+    if(jevent==JR_PRESSED && page_drawn){
+        page_drawn=!page_drawn;
+        jevent=JSW_NONE;
+        current_state_arrived=STATE_PAGE2;
+    }else if(jevent==JL_PRESSED  && page_drawn){
+        page_drawn=!page_drawn;
+        jevent=JSW_NONE;
+        current_state_arrived=STATE_PAGE4;
+    }
+    else{
+        if(!page_drawn){
+            page_drawn=!page_drawn;
+            draw_page(current_state_arrived,&race);
+        }
+
+        current_state_arrived=STATE_PAGE1;
+    }
+}
+
+
+void fn_PAGE2(){
+
+    if(jevent==JR_PRESSED  && page_drawn){
+        page_drawn=!page_drawn;
+        jevent=JSW_NONE;
+        current_state_arrived=STATE_PAGE3;
+    }else if(jevent==JL_PRESSED  && page_drawn){
+        page_drawn=!page_drawn;
+        jevent=JSW_NONE;
+        current_state_arrived=STATE_PAGE1;
+    }
+    else{
+        if(!page_drawn){
+            page_drawn=!page_drawn;
+            draw_page(current_state_arrived,&race);
+        }
+        current_state_arrived=STATE_PAGE2;
+    }
+}
+
+
+void fn_PAGE3(){
+
+    if(jevent==JR_PRESSED  && page_drawn){
+        page_drawn=!page_drawn;
+        jevent=JSW_NONE;
+        current_state_arrived=STATE_PAGE4;
+    }else if(jevent==JL_PRESSED  && page_drawn){
+        page_drawn=!page_drawn;
+        jevent=JSW_NONE;
+        current_state_arrived=STATE_PAGE2;
+    }
+    else{
+        if(!page_drawn){
+            page_drawn=!page_drawn;
+            draw_page(current_state_arrived,&race);
+        }
+        current_state_arrived=STATE_PAGE3;
+    }
+}
+
+
+void fn_PAGE4(){
+
+    if(jevent==JR_PRESSED  && page_drawn){
+        page_drawn=!page_drawn;
+        jevent=JSW_NONE;
+        current_state_arrived=STATE_PAGE1;
+    }else if(jevent==JL_PRESSED  && page_drawn){
+        page_drawn=!page_drawn;
+        jevent=JSW_NONE;
+        current_state_arrived=STATE_PAGE3;
+    }
+    else{
+        if(!page_drawn){
+            page_drawn=!page_drawn;
+            draw_page(current_state_arrived,&race);
+        }
+        current_state_arrived=STATE_PAGE4;
+    }
+}
+

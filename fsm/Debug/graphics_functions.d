@@ -62,6 +62,7 @@ graphics_functions.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/i
 graphics_functions.obj: C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdlib.h
 graphics_functions.obj: ../race.h
 graphics_functions.obj: ../gps.h
+graphics_functions.obj: ../state_machine_arrived.h
 graphics_functions.obj: ../state_machine.h
 
 ../graphics_functions.c:
@@ -187,6 +188,8 @@ C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdlib.h:
 ../race.h:
 
 ../gps.h:
+
+../state_machine_arrived.h:
 
 ../state_machine.h:
 
