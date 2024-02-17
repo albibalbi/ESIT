@@ -15,10 +15,16 @@ typedef struct{
     void (*state_function)();
 } StateMachine_t;
 
+
+
 void fn_FIXING();
 void fn_IDLE();
 void fn_RUNNING();
 void fn_PAUSE();
 void fn_ARRIVED();
+
+
+extern StateMachine_t fsm[];
+extern State_t current_state;
 
 #endif
