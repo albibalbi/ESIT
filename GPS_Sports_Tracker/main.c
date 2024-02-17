@@ -422,7 +422,7 @@ const Timer_A_UpModeConfig upConfig =
 {
         TIMER_A_CLOCKSOURCE_ACLK,               // ACLK Clock Source 32.768kHz
         TIMER_A_CLOCKSOURCE_DIVIDER_64,         // ACLK/64 = 32768/64 = 512
-        0x400,                                 // 0x1400 = 0.1Hz / 0x400 = 0.5Hz
+        0x1400,                                 // 0x1400 = 0.1Hz / 0x400 = 0.5Hz
         TIMER_A_TAIE_INTERRUPT_DISABLE,         // Disable Timer interrupt
         TIMER_A_CCIE_CCR0_INTERRUPT_ENABLE ,    // Enable CCR0 interrupt
         TIMER_A_DO_CLEAR                        // Clear value
