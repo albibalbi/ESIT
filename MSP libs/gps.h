@@ -71,6 +71,7 @@ unsigned int get_seconds_from_time(char* time);
 void gps_init(Gps* gps);
 void gps_encode(Gps* gps, char c);
 bool gps_data_valid(Gps* gps);
+void gps_set_data_valid(Gps* gps, bool value);
 bool gps_get_fix(Gps* gps);
 
 //get attribute functions

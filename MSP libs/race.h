@@ -2,6 +2,12 @@
 #define __RACE_H__
 #include "gps.h"
 
+// typedef struct Position{
+//     char latitude[GPS_LEN_LATITUDE];
+//     char longitude[GPS_LEN_LONGITUDE];
+//     char altitude[GPS_LEN_ALTITUDE];
+// }Position;
+
 typedef struct Race{
     char start_date[GPS_LEN_DATE];
     char start_time[GPS_LEN_TIME];

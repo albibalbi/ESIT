@@ -16,7 +16,8 @@ static bool check_parity(Gps* gps){
 
     int data_lenght = strlen(gps->buffer);
 
-    for (int i = 1; i < (data_lenght-4); i++){
+    int i;
+    for (i = 1; i < (data_lenght-4); i++){
         gps->parity ^= gps->buffer[i];
     }
 
@@ -55,7 +56,8 @@ static void parse_gps_data_gga(Gps* gps){
     token = fill_string_attribute(gps->position.latitude, set_position_sign(gps->position.latitude, token));
     token = fill_string_attribute(gps->position.longitude, convert_pos_to_decimal(token));
     token = fill_string_attribute(gps->position.longitude, set_position_sign(gps->position.longitude, token));
-    for (int i=0; i<3; i++){
+    int i;
+    for (i=0; i<3; i++){
         token = strtok(NULL, ",");
     }
     token = fill_string_attribute(gps->position.altitude, token);
@@ -64,7 +66,8 @@ static void parse_gps_data_gga(Gps* gps){
 //parsing of RMC segment
 static void parse_gps_data_rmc(Gps* gps){
     char * token = strtok(gps->buffer, ",");
-    for (int i=0; i<2; i++){
+    int i;
+    for (i=0; i<2; i++){
         token = strtok(NULL, ",");
     }
     if (strcmp(token, "A") == 0){
@@ -72,7 +75,7 @@ static void parse_gps_data_rmc(Gps* gps){
     }else{
         gps->fix_valid = 0;
     }
-    for (int i=0; i<6; i++){
+    for (i=0; i<6; i++){
         token = strtok(NULL, ",");
     }
     strcpy(gps->date, add_temporal_separator(token, '/'));
@@ -114,7 +117,8 @@ static char* set_position_sign(char* value, char* token){
 static char* add_temporal_separator(char* string, char separator){
     static char buffer_temporal_separator[GPS_LEN_DATE];
     int counter = 0;
-    for (int i=0; i<8; i++){
+    int i;
+    for (i=0; i<8; i++){
         if (i == 2 || i == 5){
             buffer_temporal_separator[i] = separator;
             counter++;
@@ -171,7 +175,7 @@ void gps_init(Gps* gps){
 }
 
 void gps_encode(Gps* gps, char c){
-    gps->data_valid = 0;
+    //gps->data_valid = 0;
     if (c != '\n'){
         gps->buffer[gps->buffer_index++] = c;
     }else{
@@ -204,6 +208,10 @@ void gps_encode(Gps* gps, char c){
 
 bool gps_data_valid(Gps* gps){
     return gps->data_valid ? 1 : 0;
+}
+
+void gps_set_data_valid(Gps* gps, bool value){
+    gps->data_valid = value;
 }
 
 //return if the signal is fixed
@@ -267,5 +275,3 @@ void gps_print_struct(Gps* gps){
     printf("longitude: %s\n", gps->position.longitude);
     printf("altitude: %s\n", gps->position.altitude);
 }
-
-
