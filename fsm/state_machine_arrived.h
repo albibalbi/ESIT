@@ -1,7 +1,6 @@
 #ifndef __STATE_MACHINE_ARRIVED_H__
 #define __STATE_MACHINE_ARRIVED_H__
 
-//ARRIVED fsm  STATES
 typedef enum {
     STATE_PAGE0,
     STATE_PAGE1,
@@ -11,14 +10,11 @@ typedef enum {
     NUM_STATES_ARRIVED
 }State_t_arrived;
 
-//ARRIVED fsm associated structure
 typedef struct{
     State_t_arrived state_arrived;
     void (*state_function_arrived)();
 } StateMachine_t_arrived;
 
-
-//functions associated to the ARRIVED fsm structure
 void fn_PAGE0();
 void fn_PAGE1();
 void fn_PAGE2();

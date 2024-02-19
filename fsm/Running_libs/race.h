@@ -1,6 +1,7 @@
 #ifndef __RACE_H__
 #define __RACE_H__
 #include "gps.h"
+#include <stdbool.h>
 
 // typedef struct Position{
 //     char latitude[GPS_LEN_LATITUDE];

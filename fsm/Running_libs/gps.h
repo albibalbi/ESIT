@@ -1,6 +1,8 @@
 #ifndef __GPS_H__
 #define __GPS_H__
 
+#include <stdbool.h>
+
 #define GPS_INVALID_DATE "99/99/99"
 #define GPS_INVALID_TIME "99:99:99"
 #define GPS_INVALID_LATITUDE "-99.999999"

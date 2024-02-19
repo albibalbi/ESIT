@@ -10,14 +10,14 @@ GEN_OPTS__FLAG :=
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
-"./gps.obj" \
-"./graphics_functions.obj" \
 "./main.obj" \
-"./race.obj" \
 "./startup_msp432p401r_ccs.obj" \
 "./system_msp432p401r.obj" \
+"./Graphics_libs/graphics_functions.obj" \
 "./LcdDriver/Crystalfontz128x128_ST7735.obj" \
 "./LcdDriver/HAL_MSP_EXP432P401R_Crystalfontz128x128_ST7735.obj" \
+"./Running_libs/gps.obj" \
+"./Running_libs/race.obj" \
 "../msp432p401r.cmd" \
 $(GEN_CMDS__FLAG) \
 -llibc.a \
@@ -32,9 +32,13 @@ RMDIR := RMDIR /S/Q
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include subdir_vars.mk
+-include Graphics_libs/subdir_vars.mk
 -include LcdDriver/subdir_vars.mk
+-include Running_libs/subdir_vars.mk
 -include subdir_rules.mk
+-include Graphics_libs/subdir_rules.mk
 -include LcdDriver/subdir_rules.mk
+-include Running_libs/subdir_rules.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
@@ -131,29 +135,29 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXE_OUTPUTS += \
-prova_I.out \
+prova_II.out \
 
 EXE_OUTPUTS__QUOTED += \
-"prova_I.out" \
+"prova_II.out" \
 
 
 # All Target
 all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
-	@$(MAKE) --no-print-directory -Onone "prova_I.out"
+	@$(MAKE) --no-print-directory -Onone "prova_II.out"
 
 # Tool invocations
-prova_I.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
+prova_II.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: Arm Linker'
-	"C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --advice:power=all --define=__MSP432P401R__ --define=ccs -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi -z -m"prova_I.map" --heap_size=1024 --stack_size=512 -i"C:/ti/ccs1250/ccs/ccs_base/arm/include" -i"C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/lib" -i"C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="prova_I_linkInfo.xml" --rom_model -o "prova_I.out" $(ORDERED_OBJS)
+	"C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --advice:power=all --define=__MSP432P401R__ --define=ccs -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi -z -m"prova_II.map" --heap_size=1024 --stack_size=512 -i"C:/ti/ccs1250/ccs/ccs_base/arm/include" -i"C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/lib" -i"C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="prova_II_linkInfo.xml" --rom_model -o "prova_II.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)
-	-$(RM) "gps.obj" "graphics_functions.obj" "main.obj" "race.obj" "startup_msp432p401r_ccs.obj" "system_msp432p401r.obj" "LcdDriver\Crystalfontz128x128_ST7735.obj" "LcdDriver\HAL_MSP_EXP432P401R_Crystalfontz128x128_ST7735.obj" 
-	-$(RM) "gps.d" "graphics_functions.d" "main.d" "race.d" "startup_msp432p401r_ccs.d" "system_msp432p401r.d" "LcdDriver\Crystalfontz128x128_ST7735.d" "LcdDriver\HAL_MSP_EXP432P401R_Crystalfontz128x128_ST7735.d" 
+	-$(RM) "main.obj" "startup_msp432p401r_ccs.obj" "system_msp432p401r.obj" "Graphics_libs\graphics_functions.obj" "LcdDriver\Crystalfontz128x128_ST7735.obj" "LcdDriver\HAL_MSP_EXP432P401R_Crystalfontz128x128_ST7735.obj" "Running_libs\gps.obj" "Running_libs\race.obj" 
+	-$(RM) "main.d" "startup_msp432p401r_ccs.d" "system_msp432p401r.d" "Graphics_libs\graphics_functions.d" "LcdDriver\Crystalfontz128x128_ST7735.d" "LcdDriver\HAL_MSP_EXP432P401R_Crystalfontz128x128_ST7735.d" "Running_libs\gps.d" "Running_libs\race.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

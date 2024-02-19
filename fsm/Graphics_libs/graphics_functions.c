@@ -1,7 +1,5 @@
 #include "graphics_functions.h"
 
-
-
 void change_position_r(){
     int temp;
     temp=circular_buffer[1];
@@ -22,32 +20,35 @@ void change_position_l(){
 
 
 char* m_to_km(const char *input_str) {
-
+    // Converti la stringa in un float
     float input_float = atof(input_str);
 
+    // Divide il float per 1000
     float result = input_float / 1000.0;
 
 
-    static char output_str[20];
+    static char output_str[20]; // Definizione di una stringa locale statica
 
+    // Formatta il risultato come una stringa con due cifre decimali dopo la virgola
     sprintf(output_str, "%.2f", result);
 
     return output_str;
 }
 
 char* resize_string(const char *input_str) {
-    static char last_five[6];
+    static char last_five[6]; // Buffer per contenere gli ultimi 5 caratteri e terminatore nullo
     int input_length = strlen(input_str);
 
-
+    // Calcola il numero di zeri da aggiungere all'inizio
     int zeros_to_add = (input_length < 5) ? 5 - input_length : 0;
 
-
+    // Aggiunge zeri all'inizio della stringa risultante
     int i;
     for (i = 0; i < zeros_to_add; i++) {
         last_five[i] = '0';
     }
 
+    // Copia gli ultimi 5 caratteri della stringa di input nella stringa risultante
     strcpy(last_five + zeros_to_add, (input_length >= 5) ? input_str + input_length - 5 : input_str);
 
     return last_five;
@@ -141,48 +142,6 @@ void draw_page(State_t_arrived current_state_arrived, Race* race){
                                         115,
                                         OPAQUE_TEXT);
 }
-
-void lcd_show_state(State_t current_state){
-    char state_str[10];
-
-    Graphics_setBackgroundColor(&g_sContext, GRAPHICS_COLOR_WHITE);
-    switch(current_state){
-    case STATE_FIXING:
-        sprintf(state_str, "%7s","FIXING ");
-        Graphics_setForegroundColor(&g_sContext, GRAPHICS_COLOR_RED);
-        break;
-    case STATE_IDLE:
-        sprintf(state_str, "%7s","IDLE   ");
-        Graphics_setForegroundColor(&g_sContext, GRAPHICS_COLOR_GREEN);
-        break;
-    case STATE_RUNNING:
-        sprintf(state_str, "%7s","RUNNING ");
-        Graphics_setForegroundColor(&g_sContext, GRAPHICS_COLOR_BLUE);
-        break;
-    case STATE_PAUSE:
-        sprintf(state_str, "%7s","PAUSE  ");
-        Graphics_setForegroundColor(&g_sContext, GRAPHICS_COLOR_PURPLE);
-        break;
-    case STATE_ARRIVED:
-        sprintf(state_str, "%s","ARRIVED ");
-        Graphics_setForegroundColor(&g_sContext, GRAPHICS_COLOR_BLACK);
-        break;
-    default:
-        sprintf(state_str, "%7s","NNN");
-
-    }
-
-    Graphics_drawStringCentered(&g_sContext,
-                                (int8_t *)state_str,
-                                7,
-                                64,
-                                15,
-                                OPAQUE_TEXT);
-
-
-    Graphics_setForegroundColor(&g_sContext, GRAPHICS_COLOR_BLACK);
-}
-
 
 
 void lcd_running_pause_page( Race* race){
