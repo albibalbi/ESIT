@@ -71,7 +71,7 @@ Finally to run the project you will need to add to the linker option and to the 
 
 #### Basic Project wiring
 <p align="center">
-<img src="readmeImages/wiring_schema.jpg">
+<img src="readmeImages/wiring_schema.jpg" width="500">
 </p>
 
 #### Basic Get started
