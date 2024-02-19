@@ -77,6 +77,9 @@ Finally to run the project you will need to add to the linker option and to the 
 #### Basic Get started
 If all the software requirements are satisfied, you need to connect the gps module and the microcontroller as you can see in the electric schema above. Now, you are able to flash the program on the MSP, using the command flash on CCS, and start using the whole offline system.
 
+Before you can start the run you have to wait for the data sent from the gps to be valid and the "FIXING" screen will be displayed, once the data is valid, the "IDLE" screen will appear and you can start the run.
+
+
 ## IoT Integration
 
 This extension allows you to connect the basic system to the internet. In this way you can visualize all your data on a website with additional infomation that can't be displayed on the lcd screen.
