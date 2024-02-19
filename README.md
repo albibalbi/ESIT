@@ -278,6 +278,25 @@ The data exchanged in this project follows a specific JSON format. Below is an e
 - altitude_diff: Altitude difference during the activity in meters.
 - positions: An array of objects representing latitude, longitude, and altitude at different points during the activity.
 
+## Instruction usage (MSP432 & Educational BoosterPack MKII)
+Now you can load the program in the MSP432 LaunchPad. This brief explanation will assist you in interacting with the card and the booster pack.
+
+Caption:
+| Hardware components | Port | Pin | Associated name |
+|---------------------|------|-----|-----------------|
+| Button              |  5   |  1  |  UP             |
+| Button              |  3   |  5  |  DOWN           |
+| Button              |  1   |  4  |  RESTART        |
+| Joystick            |  4   |  1  |  JOYSTICK BUTTON|
+| Joystick            |  6   |  0  |  JOYSTICK x-axis|
+| Joystick            |  4   |  5  |  JOYSTICK y-axis|
+| LED (red)           |  1   |  0  |  WI-FI LED      |
+| LED (red)           |  2   |  0  |  STATE LED      |
+| LED (green)         |  2   |  1  |  STATE LED      |
+| LED (blue)          |  2   |  2  |  STATE LED      |
+
+
+
 ## Autors
   - [Nicolò Fadigà](https://github.com/HellNF)
     - NodeJS server
