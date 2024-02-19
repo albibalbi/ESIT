@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 FrontEnd/src/json/20240123_1.json
 FrontEnd/src/json/20240123_2.json
 FrontEnd/package-lock.json
@@ -5,3 +6,9 @@ FrontEnd/src/assets/react.svg
 FrontEnd/public/vite.svg
 .DS_Store
 FrontEnd/README.md
+=======
+package-lock.json
+node_modules
+*.env
+*.log
+>>>>>>> webServer
