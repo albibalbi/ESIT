@@ -1,0 +1,503 @@
+!SESSION 2024-02-13 21:21:57.633 -----------------------------------------------
+eclipse.buildId=4.23.0.I20220308-0310
+java.version=11.0.13
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=it_IT
+Framework arguments:  -product com.ti.ccstudio.branding.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product com.ti.ccstudio.branding.product
+
+!ENTRY com.ti.common.core 1 0 2024-02-13 21:22:45.739
+!MESSAGE path=ccs_base/DebugServer
+
+!ENTRY com.ti.common.core 1 0 2024-02-13 21:22:45.739
+!MESSAGE debugServerDir=C:/ti/ccs1250/ccs/ccs_base/DebugServer
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2024-02-13 21:22:50.747
+!MESSAGE constructor
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2024-02-13 21:22:50.749
+!MESSAGE done with directories
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2024-02-13 21:22:50.750
+!MESSAGE loading ti_logger
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2024-02-13 21:22:50.750
+!MESSAGE Platform os: win32
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2024-02-13 21:22:50.757
+!MESSAGE loading cToolsIF
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2024-02-13 21:22:50.767
+!MESSAGE loading cTools
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2024-02-13 21:22:50.777
+!MESSAGE loading TraceFactory
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2024-02-13 21:22:50.787
+!MESSAGE loading sqlite3
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2024-02-13 21:22:50.796
+!MESSAGE loading CloudTrace
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2024-02-13 21:22:50.827
+!MESSAGE CloudTrace interface loaded
+
+!ENTRY org.eclipse.equinox.event 4 0 2024-02-13 21:22:55.761
+!MESSAGE Exception while dispatching event org.osgi.service.event.Event [topic=org/eclipse/e4/ui/model/application/ApplicationElement/tags/ADD] {ChangedElement=org.eclipse.e4.primaryDataStack=org.eclipse.e4.ui.model.application.ui.basic.impl.PartStackImpl@411576c7 (tags: [org.eclipse.e4.primaryDataStack, EditorStack, active, Maximized], contributorURI: null) (widget: CTabFolder {} [layout=org.eclipse.swt.custom.CTabFolderLayout@6208f81c], renderer: org.eclipse.e4.ui.workbench.renderers.swt.StackRenderer@615b1baf, toBeRendered: true, onTop: false, visible: true, containerData: null, accessibilityPhrase: null), org.eclipse.e4.data={ChangedElement=org.eclipse.e4.primaryDataStack=org.eclipse.e4.ui.model.application.ui.basic.impl.PartStackImpl@411576c7 (tags: [org.eclipse.e4.primaryDataStack, EditorStack, active, Maximized], contributorURI: null) (widget: CTabFolder {} [layout=org.eclipse.swt.custom.CTabFolderLayout@6208f81c], renderer: org.eclipse.e4.ui.workbench.renderers.swt.StackRenderer@615b1baf, toBeRendered: true, onTop: false, visible: true, containerData: null, accessibilityPhrase: null), AttName=tags, EventType=ADD, Position=3, Widget=CTabFolder {} [layout=org.eclipse.swt.custom.CTabFolderLayout@6208f81c], NewValue=Maximized}, AttName=tags, EventType=ADD, Position=3, Widget=CTabFolder {} [layout=org.eclipse.swt.custom.CTabFolderLayout@6208f81c], NewValue=Maximized} to handler org.eclipse.e4.ui.internal.di.UIEventObjectSupplier$UIEventHandler@67d4e8f7
+!STACK 0
+org.eclipse.e4.core.di.InjectionException: java.lang.IllegalArgumentException: 
+	at org.eclipse.e4.core.internal.di.MethodRequestor.execute(MethodRequestor.java:68)
+	at org.eclipse.swt.widgets.Synchronizer.syncExec(Synchronizer.java:236)
+	at org.eclipse.ui.internal.UISynchronizer.syncExec(UISynchronizer.java:133)
+	at org.eclipse.swt.widgets.Display.syncExec(Display.java:4779)
+	at org.eclipse.e4.ui.workbench.swt.DisplayUISynchronize.syncExec(DisplayUISynchronize.java:34)
+	at org.eclipse.e4.ui.internal.di.UIEventObjectSupplier$UIEventHandler.handleEvent(UIEventObjectSupplier.java:64)
+	at org.eclipse.equinox.internal.event.EventHandlerWrapper.handleEvent(EventHandlerWrapper.java:205)
+	at org.eclipse.equinox.internal.event.EventHandlerTracker.dispatchEvent(EventHandlerTracker.java:203)
+	at org.eclipse.equinox.internal.event.EventHandlerTracker.dispatchEvent(EventHandlerTracker.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:234)
+	at org.eclipse.osgi.framework.eventmgr.ListenerQueue.dispatchEventSynchronous(ListenerQueue.java:151)
+	at org.eclipse.equinox.internal.event.EventAdminImpl.dispatchEvent(EventAdminImpl.java:133)
+	at org.eclipse.equinox.internal.event.EventAdminImpl.sendEvent(EventAdminImpl.java:75)
+	at org.eclipse.equinox.internal.event.EventComponent.sendEvent(EventComponent.java:44)
+	at org.eclipse.e4.ui.services.internal.events.EventBroker.send(EventBroker.java:55)
+	at org.eclipse.e4.ui.internal.workbench.UIEventPublisher.notifyChanged(UIEventPublisher.java:63)
+	at org.eclipse.emf.common.notify.impl.BasicNotifierImpl.eNotify(BasicNotifierImpl.java:424)
+	at org.eclipse.emf.ecore.util.EcoreEList.dispatchNotification(EcoreEList.java:249)
+	at org.eclipse.emf.common.notify.impl.NotifyingListImpl.addUnique(NotifyingListImpl.java:304)
+	at org.eclipse.emf.common.util.AbstractEList.add(AbstractEList.java:304)
+	at org.eclipse.ui.internal.WorkbenchIntroManager.setIntroStandby(WorkbenchIntroManager.java:200)
+	at org.eclipse.ui.internal.WorkbenchIntroManager.showIntro(WorkbenchIntroManager.java:139)
+	at org.eclipse.ui.application.WorkbenchWindowAdvisor.openIntro(WorkbenchWindowAdvisor.java:188)
+	at org.eclipse.ui.internal.ide.application.IDEWorkbenchWindowAdvisor.openIntro(IDEWorkbenchWindowAdvisor.java:573)
+	at org.eclipse.ui.internal.WorkbenchWindow.setup(WorkbenchWindow.java:933)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.e4.core.internal.di.MethodRequestor.execute(MethodRequestor.java:58)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.processAnnotated(InjectorImpl.java:995)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.internalInject(InjectorImpl.java:140)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.inject(InjectorImpl.java:96)
+	at org.eclipse.e4.core.contexts.ContextInjectionFactory.inject(ContextInjectionFactory.java:83)
+	at org.eclipse.ui.internal.Workbench.createWorkbenchWindow(Workbench.java:1469)
+	at org.eclipse.ui.internal.StandardTrim.createStatusLine(StandardTrim.java:118)
+	at org.eclipse.ui.internal.StandardTrim.createWidget(StandardTrim.java:48)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.e4.core.internal.di.MethodRequestor.execute(MethodRequestor.java:58)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.processAnnotated(InjectorImpl.java:995)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.internalInject(InjectorImpl.java:140)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.internalMake(InjectorImpl.java:403)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.make(InjectorImpl.java:344)
+	at org.eclipse.e4.core.contexts.ContextInjectionFactory.make(ContextInjectionFactory.java:227)
+	at org.eclipse.e4.ui.internal.workbench.ReflectionContributionFactory.createFromBundle(ReflectionContributionFactory.java:94)
+	at org.eclipse.e4.ui.internal.workbench.ReflectionContributionFactory.doCreate(ReflectionContributionFactory.java:60)
+	at org.eclipse.e4.ui.internal.workbench.ReflectionContributionFactory.create(ReflectionContributionFactory.java:37)
+	at org.eclipse.e4.ui.workbench.renderers.swt.ToolControlRenderer.createWidget(ToolControlRenderer.java:129)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createWidget(PartRenderingEngine.java:995)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:659)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:763)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$2.run(PartRenderingEngine.java:728)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createGui(PartRenderingEngine.java:712)
+	at org.eclipse.e4.ui.workbench.renderers.swt.SWTPartRenderer.processContents(SWTPartRenderer.java:72)
+	at org.eclipse.e4.ui.workbench.renderers.swt.TrimBarRenderer.processContents(TrimBarRenderer.java:109)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:673)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$1.run(PartRenderingEngine.java:544)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createGui(PartRenderingEngine.java:528)
+	at org.eclipse.e4.ui.workbench.renderers.swt.WBWRenderer.processContents(WBWRenderer.java:680)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:673)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:763)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$2.run(PartRenderingEngine.java:728)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createGui(PartRenderingEngine.java:712)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1083)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1046)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:155)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:644)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:551)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:156)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:152)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:136)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:401)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:659)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:596)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1467)
+Caused by: java.lang.IllegalArgumentException: 
+	at org.eclipse.core.runtime.Assert.isLegal(Assert.java:66)
+	at org.eclipse.core.runtime.Assert.isLegal(Assert.java:50)
+	at org.eclipse.e4.ui.internal.workbench.ModelServiceImpl.findElementsRecursive(ModelServiceImpl.java:175)
+	at org.eclipse.e4.ui.internal.workbench.ModelServiceImpl.findElements(ModelServiceImpl.java:437)
+	at org.eclipse.e4.ui.internal.workbench.ModelServiceImpl.findElements(ModelServiceImpl.java:430)
+	at org.eclipse.e4.ui.workbench.addons.minmax.MinMaxAddon.findValidElementsToMinimize(MinMaxAddon.java:855)
+	at org.eclipse.e4.ui.workbench.addons.minmax.MinMaxAddon.getElementsToMinimize(MinMaxAddon.java:798)
+	at org.eclipse.e4.ui.workbench.addons.minmax.MinMaxAddon.maximize(MinMaxAddon.java:734)
+	at org.eclipse.e4.ui.workbench.addons.minmax.MinMaxAddon.subscribeTopicTagsChanged(MinMaxAddon.java:408)
+	at jdk.internal.reflect.GeneratedMethodAccessor16.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.e4.core.internal.di.MethodRequestor.execute(MethodRequestor.java:58)
+	... 89 more
+
+!ENTRY com.ti.ccstudio.project.ui.webcontent 1 0 2024-02-13 21:22:57.239
+!MESSAGE CCS HTTP adapter started! [ccs.port:51078] - Open 'http://localhost:51078/ide' in web browser to see listing of available APIs...
+
+!ENTRY com.ti.ccstudio.ui 1 0 2024-02-13 21:23:04.000
+!MESSAGE CCS IDE session started!
+	CCS build: 12.5.0.00007
+	CCS location: C:/ti/ccs1250/ccs
+	Workspace location: C:/Users/albib/OneDrive/Desktop/progetto_EIST/ESIT
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:23:06.600
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2linux/artifacts.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:23:07.597
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2mac/artifacts.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:23:08.377
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2win32/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:23:11.059
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2linux/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:23:13.819
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2mac/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:23:15.579
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2linux/artifacts.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:23:16.218
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2mac/artifacts.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:23:16.885
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/CCSv5/Updates/, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:23:17.416
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2win32/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:23:19.768
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2linux/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:23:21.974
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2mac/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:23:23.036
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/CCSv5/Updates/, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:23:24.278
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2linux/artifacts.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:23:24.869
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2win32/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:23:27.072
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2linux/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:23:31.551
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2linux/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.core 4 0 2024-02-13 21:25:23.151
+!MESSAGE Provisioning exception
+!STACK 1
+org.eclipse.equinox.p2.core.ProvisionException: No repository found at https://software-dl.ti.com/ccs/esd/CCSv12/Updates/CCS12.0.0.00009_update.
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.fail(AbstractRepositoryManager.java:405)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:709)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:110)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:105)
+	at org.eclipse.equinox.internal.p2.metadata.repository.CompositeMetadataRepository.addChild(CompositeMetadataRepository.java:171)
+	at org.eclipse.equinox.internal.p2.metadata.repository.CompositeMetadataRepository.<init>(CompositeMetadataRepository.java:113)
+	at org.eclipse.equinox.internal.p2.metadata.repository.CompositeMetadataRepositoryFactory.load(CompositeMetadataRepositoryFactory.java:124)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.factoryLoad(MetadataRepositoryManager.java:63)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:787)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:685)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:110)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:105)
+	at org.eclipse.equinox.internal.p2.updatechecker.UpdateChecker.getAvailableRepositories(UpdateChecker.java:152)
+	at org.eclipse.equinox.internal.p2.updatechecker.UpdateChecker.checkForUpdates(UpdateChecker.java:130)
+	at org.eclipse.equinox.internal.p2.updatechecker.UpdateChecker$UpdateCheckThread.run(UpdateChecker.java:78)
+!SUBENTRY 1 org.eclipse.equinox.p2.metadata.repository 4 1000 2024-02-13 21:25:23.151
+!MESSAGE No repository found at https://software-dl.ti.com/ccs/esd/CCSv12/Updates/CCS12.0.0.00009_update.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:25:43.710
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2mac/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:25:48.517
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/CCSv5/Updates/, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY com.ti.ccstudio.project.ui 4 0 2024-02-13 21:26:00.129
+!MESSAGE An internal error was logged by 'com.ti.ccstudio.project.ui'.
+!STACK 0
+java.lang.NullPointerException
+	at com.ti.ccstudio.project.core.services.ProjectBuilder.internalBuildProjects(ProjectBuilder.java:360)
+	at com.ti.ccstudio.project.core.services.ProjectBuilder.buildProjects(ProjectBuilder.java:283)
+	at com.ti.ccstudio.project.ui.internal.actions.BuildProjectAction_hack$2.run(BuildProjectAction_hack.java:82)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SESSION 2024-02-13 21:27:06.828 -----------------------------------------------
+eclipse.buildId=4.23.0.I20220308-0310
+java.version=11.0.13
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=it_IT
+Framework arguments:  -product com.ti.ccstudio.branding.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product com.ti.ccstudio.branding.product
+
+!ENTRY com.ti.common.core 1 0 2024-02-13 21:27:19.836
+!MESSAGE path=ccs_base/DebugServer
+
+!ENTRY com.ti.common.core 1 0 2024-02-13 21:27:19.836
+!MESSAGE debugServerDir=C:/ti/ccs1250/ccs/ccs_base/DebugServer
+
+!ENTRY com.ti.ccstudio.ui 1 0 2024-02-13 21:27:42.429
+!MESSAGE CCS IDE session started!
+	CCS build: 12.5.0.00007
+	CCS location: C:/ti/ccs1250/ccs
+	Workspace location: C:/Users/albib/OneDrive/Desktop/progetto_EIST/ESIT
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2024-02-13 21:27:42.946
+!MESSAGE constructor
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2024-02-13 21:27:42.946
+!MESSAGE done with directories
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2024-02-13 21:27:42.946
+!MESSAGE loading ti_logger
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2024-02-13 21:27:42.951
+!MESSAGE Platform os: win32
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2024-02-13 21:27:42.955
+!MESSAGE loading cToolsIF
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2024-02-13 21:27:42.967
+!MESSAGE loading cTools
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2024-02-13 21:27:42.977
+!MESSAGE loading TraceFactory
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2024-02-13 21:27:42.980
+!MESSAGE loading sqlite3
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2024-02-13 21:27:42.987
+!MESSAGE loading CloudTrace
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2024-02-13 21:27:43.015
+!MESSAGE CloudTrace interface loaded
+
+!ENTRY com.ti.ccstudio.project.ui.webcontent 1 0 2024-02-13 21:27:43.311
+!MESSAGE CCS HTTP adapter started! [ccs.port:51294] - Open 'http://localhost:51294/ide' in web browser to see listing of available APIs...
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:27:48.216
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2linux/artifacts.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:27:51.346
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2mac/artifacts.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:27:53.006
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2win32/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:27:59.720
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2linux/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:28:03.657
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2mac/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:28:06.573
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2linux/artifacts.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:28:08.037
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2mac/artifacts.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:28:11.487
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/CCSv5/Updates/, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:28:12.466
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2linux/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:28:13.755
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2win32/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:28:17.089
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2linux/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:28:19.609
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2mac/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:28:21.091
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/CCSv5/Updates/, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:28:22.968
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2linux/artifacts.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:28:24.939
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2win32/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:28:28.767
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2linux/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.core 4 0 2024-02-13 21:29:51.979
+!MESSAGE Provisioning exception
+!STACK 1
+org.eclipse.equinox.p2.core.ProvisionException: No repository found at https://software-dl.ti.com/ccs/esd/CCSv12/Updates/CCS12.0.0.00009_update.
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.fail(AbstractRepositoryManager.java:405)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:709)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:110)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:105)
+	at org.eclipse.equinox.internal.p2.metadata.repository.CompositeMetadataRepository.addChild(CompositeMetadataRepository.java:171)
+	at org.eclipse.equinox.internal.p2.metadata.repository.CompositeMetadataRepository.<init>(CompositeMetadataRepository.java:113)
+	at org.eclipse.equinox.internal.p2.metadata.repository.CompositeMetadataRepositoryFactory.load(CompositeMetadataRepositoryFactory.java:124)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.factoryLoad(MetadataRepositoryManager.java:63)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:787)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:685)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:110)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:105)
+	at org.eclipse.equinox.internal.p2.updatechecker.UpdateChecker.getAvailableRepositories(UpdateChecker.java:152)
+	at org.eclipse.equinox.internal.p2.updatechecker.UpdateChecker.checkForUpdates(UpdateChecker.java:130)
+	at org.eclipse.equinox.internal.p2.updatechecker.UpdateChecker$UpdateCheckThread.run(UpdateChecker.java:78)
+!SUBENTRY 1 org.eclipse.equinox.p2.metadata.repository 4 1000 2024-02-13 21:29:51.979
+!MESSAGE No repository found at https://software-dl.ti.com/ccs/esd/CCSv12/Updates/CCS12.0.0.00009_update.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:30:21.276
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2mac/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:30:23.059
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/CCSv5/Updates/, see CVE-2021-41033. Consider using https instead.
+!SESSION 2024-02-13 21:33:21.190 -----------------------------------------------
+eclipse.buildId=4.23.0.I20220308-0310
+java.version=11.0.13
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=it_IT
+Framework arguments:  -product com.ti.ccstudio.branding.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product com.ti.ccstudio.branding.product
+
+!ENTRY com.ti.common.core 1 0 2024-02-13 21:33:29.336
+!MESSAGE path=ccs_base/DebugServer
+
+!ENTRY com.ti.common.core 1 0 2024-02-13 21:33:29.338
+!MESSAGE debugServerDir=C:/ti/ccs1250/ccs/ccs_base/DebugServer
+
+!ENTRY com.ti.ccstudio.ui 1 0 2024-02-13 21:33:56.803
+!MESSAGE CCS IDE session started!
+	CCS build: 12.5.0.00007
+	CCS location: C:/ti/ccs1250/ccs
+	Workspace location: C:/Users/albib/OneDrive/Desktop/progetto_EIST/ESIT
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2024-02-13 21:33:57.399
+!MESSAGE constructor
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2024-02-13 21:33:57.406
+!MESSAGE done with directories
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2024-02-13 21:33:57.408
+!MESSAGE loading ti_logger
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2024-02-13 21:33:57.408
+!MESSAGE Platform os: win32
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2024-02-13 21:33:57.415
+!MESSAGE loading cToolsIF
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2024-02-13 21:33:57.424
+!MESSAGE loading cTools
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2024-02-13 21:33:57.430
+!MESSAGE loading TraceFactory
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2024-02-13 21:33:57.440
+!MESSAGE loading sqlite3
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2024-02-13 21:33:57.446
+!MESSAGE loading CloudTrace
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2024-02-13 21:33:57.460
+!MESSAGE CloudTrace interface loaded
+
+!ENTRY com.ti.ccstudio.project.ui.webcontent 1 0 2024-02-13 21:33:57.790
+!MESSAGE CCS HTTP adapter started! [ccs.port:51466] - Open 'http://localhost:51466/ide' in web browser to see listing of available APIs...
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:34:05.781
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2linux/artifacts.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:34:15.137
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2mac/artifacts.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:34:17.417
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2win32/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:34:26.374
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2linux/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:34:33.102
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2linux/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:34:37.623
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2mac/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:34:44.192
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2linux/artifacts.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:34:46.222
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2mac/artifacts.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:34:48.372
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/CCSv5/Updates/, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:34:50.016
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2win32/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:34:59.960
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2linux/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:35:08.981
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2mac/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:35:12.912
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/CCSv5/Updates/, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:35:17.426
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2linux/artifacts.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:35:24.091
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2win32/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:35:31.670
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2linux/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.core 4 0 2024-02-13 21:36:30.809
+!MESSAGE Provisioning exception
+!STACK 1
+org.eclipse.equinox.p2.core.ProvisionException: No repository found at https://software-dl.ti.com/ccs/esd/CCSv12/Updates/CCS12.0.0.00009_update.
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.fail(AbstractRepositoryManager.java:405)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:709)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:110)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:105)
+	at org.eclipse.equinox.internal.p2.metadata.repository.CompositeMetadataRepository.addChild(CompositeMetadataRepository.java:171)
+	at org.eclipse.equinox.internal.p2.metadata.repository.CompositeMetadataRepository.<init>(CompositeMetadataRepository.java:113)
+	at org.eclipse.equinox.internal.p2.metadata.repository.CompositeMetadataRepositoryFactory.load(CompositeMetadataRepositoryFactory.java:124)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.factoryLoad(MetadataRepositoryManager.java:63)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:787)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:685)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:110)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:105)
+	at org.eclipse.equinox.internal.p2.updatechecker.UpdateChecker.getAvailableRepositories(UpdateChecker.java:152)
+	at org.eclipse.equinox.internal.p2.updatechecker.UpdateChecker.checkForUpdates(UpdateChecker.java:130)
+	at org.eclipse.equinox.internal.p2.updatechecker.UpdateChecker$UpdateCheckThread.run(UpdateChecker.java:78)
+!SUBENTRY 1 org.eclipse.equinox.p2.metadata.repository 4 1000 2024-02-13 21:36:30.809
+!MESSAGE No repository found at https://software-dl.ti.com/ccs/esd/CCSv12/Updates/CCS12.0.0.00009_update.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:36:44.496
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/codegen/Updates/p2mac/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2024-02-13 21:36:46.520
+!MESSAGE Using unsafe http transport to retrieve http://software-dl.ti.com/dsps/dsps_public_sw/sdo_ccstudio/CCSv5/Updates/, see CVE-2021-41033. Consider using https instead.
