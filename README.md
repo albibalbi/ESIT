@@ -73,6 +73,7 @@ Finally to run the project you will need to add to the linker option and to the 
 <p align="center">
 <img src="readmeImages/wiring_schema.jpg">
 </p>
+
 #### Basic Get started
 ## IoT Integration
 
