@@ -24,7 +24,7 @@
       - [Running the Application](#running-the-application)
       - [Dependencies](#dependencies)
       - [Using Visual Studio Code](#using-visual-studio-code)
-  -- [JSON Format](#json-format)
+  - [JSON Format](#json-format)
   - [Autors](#autors)
   - [Links](#links)
       
