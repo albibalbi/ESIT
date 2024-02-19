@@ -19,6 +19,12 @@
       - [IoT Hardware](#iot-hardware)
       - [IoT Software](#iot-software)
       - [IoT Get started](#iot-get-started)
+  - [FrontEnd ](#frontend)
+      - [Installation](#installation)
+      - [Running the Application](#running-the-application)
+      - [Dependencies](#dependencies)
+      - [Using Visual Studio Code](#using-visual-studio-code)
+  -- [JSON Format](#json-format)
   - [Autors](#autors)
   - [Links](#links)
       
@@ -275,7 +281,8 @@ The data exchanged in this project follows a specific JSON format. Below is an e
     - Interface with GPS on MSP432
     - Interface with UART on MSP432
   - [Alberto Balbinot](https://github.com/albibalb)
-    - :camel:
+    - MSP432 controls
+    - Display data on LCD screen.
 ## Links
   - [Demo Video]()
   - [Project presentation]()
