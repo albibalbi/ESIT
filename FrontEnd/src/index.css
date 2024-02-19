@@ -1,0 +1,37 @@
+/* File: MyDashboardPage.css */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(to bottom, #3498db, #87CEFA); /* Blue to Light Blue Gradient */
+  color: #fff; /* Text color on the gradient background */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Set the height to 100% of the viewport */
+}
+
+.custom-dropdown {
+  padding: 12px; /* Increase padding for a larger dropdown */
+  font-size: 16px;
+  width: 200px; /* Set a fixed width for a more rectangular shape */
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.dashboard {
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background: #fff; /* White background for the dashboard */
+  color: #333; /* Text color on the white background */
+  width: 300px;
+  text-align: center;
+}
+
+h2 {
+  color: #333;
+}
