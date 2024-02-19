@@ -293,7 +293,7 @@ The data exchanged in this project follows a specific JSON format. Below is an e
     - MSP432 controls
     - Display data on LCD screen.
 ## Links
-  - [Demo Video]()
+  - [Demo Video](https://youtu.be/2A24uE8d8Nk)
   - [Project presentation]()
 
 
