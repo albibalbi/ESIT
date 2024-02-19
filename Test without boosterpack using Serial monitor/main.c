@@ -6,8 +6,11 @@
 
 #include <ti/devices/msp432p4xx/driverlib/driverlib.h>
 #include "race.h"
-#include "booster_pack_pin_map.h"
 #include "state_machine.h"
+
+#define RGB_LED_RED         GPIO_PORT_P2, GPIO_PIN6
+#define RGB_LED_GREEN       GPIO_PORT_P2, GPIO_PIN4
+#define RGB_LED_BLUE        GPIO_PORT_P5, GPIO_PIN6
 
 typedef enum Color{
     OFF, GREEN, RED, BLUE, PURPLE, YELLOW, WHITE
