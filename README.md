@@ -53,7 +53,7 @@ You will need an `MSP432p401r` of the Texas Instrument company with its own expa
 #### Basic Software
 In order to flash the program into the Texas Instrument components, you first need to install [Code Composer Studio](https://www.ti.com/tool/download/CCSTUDIO/12.2.0). 
 
-The next step is to create a new CCS project, choosing the right target system (MSP432P401R), and paste all the files in `ccsProject/mainProjectFolder` and `ccsProject/sensorsLibraries` folders. You need also to exlude all the .c files, exept for the `main.c` and the one from the sensorsLibraries, from the build with a right click on them.
+The next step is to create a new CCS project, choosing the right target system (MSP432P401R), and paste all the files in `MSP_Code/GPS_Sport_Tracker` folder into your project. 
 
 Finally to run the project you will need to add to the linker option and to the compiler option the driverlib library downloading it at this [link](https://drive.google.com/file/d/1krZfBNAFiE6yAChQfHZVE-b0wfuDitgV/view?usp=sharing). 
 
@@ -75,6 +75,8 @@ Finally to run the project you will need to add to the linker option and to the 
 </p>
 
 #### Basic Get started
+If all the software requirements are satisfied, you need to connect the gps module and the microcontroller as you can see in the electric schema above. Now, you are able to flash the program on the MSP, using the command flash on CCS, and start using the whole offline system.
+
 ## IoT Integration
 
 This extension allows you to connect the basic system to the internet. In this way you can visualize all your data on a website with additional infomation that can't be displayed on the lcd screen.
