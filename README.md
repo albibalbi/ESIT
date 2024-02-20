@@ -36,7 +36,7 @@ This system has been designed to keep track of your sporting activities and rout
 The system include the following components:
   - **MSP432** :This device samples the data received from the GPS, processes it, and sends it via UART to the ESP32 board.
   - **ESP32** : This microcontroller receives data via serial communication and enables the system to connect to the internet in order to send data to the web server.
-  - **GPS Sensor**: This sensor connects to satellites, receives, and transmits the received data via serial communication.
+  - **GPS Module**: This module connects to satellites, receives, and transmits the received data via serial communication.
 
 The entire process starts by initiating the run from the MSP432 through the interaction menu. Subsequently, the board will start sampling data received from the GPS sensor every 10 seconds. Once the button to end the run is pressed, the collected data will be processed, extracting some useful statistics, and then sent to the ESP32 board, which was waiting until then. Upon receiving the data, it will format them into JSON format to make them suitable for insertion into the database. Once formatted, the program will check if it is connected to a Wi-Fi network, and if affirmative, it will send them to the server, which will insert them into the MongoDB database. On the backend side, the web server will handle various requests that can come from both ESP32 and the website. Finally, the website, through a GET request to the server, will obtain the run data and plot them on the map and display statistics in the dashboard.
 
@@ -50,7 +50,10 @@ The Basic idea of the project is to develop a tracking system that enables you t
 ### Basic Requirements
 #### Basic Hardware
 
-You will need an `MSP432p401r` of the Texas Instrument company with its own expansion: the `BOOSTXL-EDUMKII`.You will also need a gps module.
+- `MSP432p401r` of the Texas Instrument company with its own expansion: the `BOOSTXL-EDUMKII`.
+- `ESP32-WROOM-32` module 2.4 GHz Dual Core WLAN WiFi Bluetooth
+- `GPS Mini NEO-6M` GPS module.
+
 #### Basic Software
 In order to flash the program into the Texas Instrument components, you first need to install [Code Composer Studio](https://www.ti.com/tool/download/CCSTUDIO/12.2.0). 
 
