@@ -333,8 +333,9 @@ Caption:
     - Javascript (React)  FrontEnd
     - C functions for conversion between strings format
   - [Marco Ruzzon](https://github.com/ruzzlft)
-    - Interface with GPS on MSP432
-    - Interface with UART on MSP432
+    - Interface with GPS module and MSP432
+    - Data structures and functions for data collection
+    - Project testing
   - [Alberto Balbinot](https://github.com/albibalb)
     - FSM implementation
     - MSP432 controls
