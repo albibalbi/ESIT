@@ -48,11 +48,11 @@ void loop() {
 
   }
   
-  
+  if(c.lenght()>50){
     input=c.c_str(); //string to char*
     Serial.println(input); 
     sendJson();
-  
+  }
   
   
   
