@@ -82,7 +82,7 @@ void sendJson(){
     else{
       Serial.println("HTTP POST: Failed");
       Serial.println(http.errorToString(httpCode).c_str());
-
+      free(formattedResult);
     }
 
     http.end();
