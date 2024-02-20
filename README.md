@@ -342,6 +342,6 @@ Caption:
     - Display data on LCD screen
 ## Links
   - [Demo Video](https://youtu.be/2A24uE8d8Nk)
-  - [Project presentation]()
+  - [Project presentation](https://docs.google.com/presentation/d/1Q7nudGzMPj-ylYudwFneakKHrK5woE6N/edit?usp=drive_link&ouid=108945511600600055164&rtpof=true&sd=true)
 
 
