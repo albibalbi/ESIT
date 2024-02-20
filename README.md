@@ -308,7 +308,7 @@ Caption:
   - Press button RESTART to restart the activity (-->STATE IDLE)
 - __STATE PAUSE__: the data acquisition is suspended.
   - STATE LED = purple
-  - in this state the same data display mechanism described in the RUNNING state is implemented. However, now time and distance data do not change over time and the instantaneous speed value is replaced with: '- -'
+  - in this state the same data display mechanism described in the RUNNING state is implemented. However, now time and distance data do not change over time and the instantaneous speed value is replaced with: '--'
   - Press button UP to resume the activity (-->STATE RUNNING)
   - Press button RESTART to restart (-->STATE IDLE)
   - Press button DOWN to finish (-->STATE ARRIVED)
@@ -318,6 +318,10 @@ Caption:
   - In order to start a new activity, press the button DOWN. (-->STATE IDLE)
 
 ### FSM flowchart
+
+<p align="center">
+<img src="readmeImages/fsm_flowchart.jpg" width="1000" >
+</p>
 
 ## Autors
   - [Nicolò Fadigà](https://github.com/HellNF)
