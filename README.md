@@ -279,7 +279,7 @@ The data exchanged in this project follows a specific JSON format. Below is an e
 - positions: An array of objects representing latitude, longitude, and altitude at different points during the activity.
 
 ## Instruction usage (MSP432 & Educational BoosterPack MKII)
-Now you can load the program in the MSP432 LaunchPad. This brief explanation will assist you in interacting with the card and the booster pack.
+Now you can load the program in the MSP432 LaunchPad. This brief explanation will assist you in interacting with the board and the booster pack.
 
 Caption:
 | Hardware components | Port | Pin | Associated name |
@@ -296,6 +296,28 @@ Caption:
 | LED (blue)          |  2   |  2  |  STATE LED      |
 
 
+- __STATE FIXING__: wait until the GPS is ready to record the data.
+  - STATE LED = red
+- __STATE IDLE__: the gps is now ready to record data.
+  - STATE LED = green
+  - Press button UP to start the activity (-->STATE RUNNING)
+- __STATE RUNNING__: the data is being captured and displayed on the LCD.
+  - STATE LED = blue
+  - In this state three data are shown in real time on the LCD: Time; Distance; Instant speed; One of them is displayed larger than the others. By moving the joystick to the right (or left), you can select the data shown at the bottom right (or left). Pressing the joystick will change the arrangement of the data. The data in the bottom right replaces the one displayed in large
+  - Press button UP to suspend the activity (-->STATE PAUSE)
+  - Press button RESTART to restart the activity (-->STATE IDLE)
+- __STATE PAUSE__: the data acquisition is suspended.
+  - STATE LED = purple
+  - in this state the same data display mechanism described in the RUNNING state is implemented. However, now time and distance data do not change over time and the instantaneous speed value is replaced with: '- -'
+  - Press button UP to resume the activity (-->STATE RUNNING)
+  - Press button RESTART to restart (-->STATE IDLE)
+  - Press button DOWN to finish (-->STATE ARRIVED)
+- __STATE ARRIVED__: the recorded date is sent to the webserver if you are connected to WI-FI. Verify your connection by checking the WI-FI LED. If you are connected to the internet, the LED will light up.
+  - STATE LED = white
+  - In this state, by pressing the joystick, you access the view of cumulative data concerning the activity just finished. Four data (total distance, total time, average speed and high difference) are displayed in four different pages. By moving the JOYSTICK to the right or left you can scroll between pages
+  - In order to start a new activity, press the button DOWN. (-->STATE IDLE)
+
+### FSM flowchart
 
 ## Autors
   - [Nicolò Fadigà](https://github.com/HellNF)
@@ -309,8 +331,9 @@ Caption:
     - Interface with GPS on MSP432
     - Interface with UART on MSP432
   - [Alberto Balbinot](https://github.com/albibalb)
+    - FSM implementation
     - MSP432 controls
-    - Display data on LCD screen.
+    - Display data on LCD screen
 ## Links
   - [Demo Video](https://youtu.be/2A24uE8d8Nk)
   - [Project presentation]()
