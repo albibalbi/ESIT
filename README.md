@@ -25,6 +25,7 @@
       - [Dependencies](#dependencies)
       - [Using Visual Studio Code](#using-visual-studio-code)
   - [JSON Format](#json-format)
+  - [Instructions for use](#instruction-for-use)
   - [Autors](#autors)
   - [Links](#links)
       
@@ -278,8 +279,8 @@ The data exchanged in this project follows a specific JSON format. Below is an e
 - altitude_diff: Altitude difference during the activity in meters.
 - positions: An array of objects representing latitude, longitude, and altitude at different points during the activity.
 
-## Instruction usage (MSP432 & Educational BoosterPack MKII)
-Now you can load the program in the MSP432 LaunchPad. This brief explanation will assist you in interacting with the board and the booster pack.
+## Instruction for use 
+Now you can load the program in the MSP432 LaunchPad. This brief explanation will assist you in interacting with the board and the Educational BoosterPack MKII.
 
 Caption:
 | Hardware components | Port | Pin | Associated name |
@@ -320,7 +321,7 @@ Caption:
 ### FSM flowchart
 
 <p align="center">
-<img src="readmeImages/fsm_flowchart.jpg" width="1000" >
+<img src="readmeImages/FSM_flowchart.jpg" width="1000" >
 </p>
 
 ## Autors
